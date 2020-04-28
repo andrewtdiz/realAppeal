@@ -1,23 +1,74 @@
 <template>
-  <div id="app" class="max-h-screen overflow-x-hidden" :class="!(navBar==1) ? 'overflow-y-scroll' : 'overflow-y-auto'">
+  <div id="app" class="max-h-screen md:overflow-x-hidden overflow-y-visible " :class="navBar==1 ? ['flex', 'flex-col', 'h-screen'] : ''">
     <HelloWorld :navBar="navBar" v-on:appealClick="appealClick" v-on:homeBoi="homeBoi"/>
-    <div class="absolute top-0 w-screen h-screen flex flex-col justify-end items-end px-10 select-none" :class="showChat ? 'pb-16' : 'pb-0'" style="z-index: 100; pointer-events: none;">
+    <div class="absolute top-0 h-screen flex flex-col justify-end items-end px-10" :class="chatStyle" style="z-index: 100; width:99%; pointer-events:none;">
       <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-24 sm:h-24 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
         <font-awesome-icon class="text-white my-2 w-full h-full hidden sm:block" :icon="['fas', 'comment-dots']" size="3x" />
         <font-awesome-icon class="text-white my-2 w-full h-full block sm:hidden" :icon="['fas', 'comment-dots']" size="2x" />
 
       </div>
-      <div v-show="!showChat" class="bg-white flex flex-col items-stretch shadow overflow-hidden dropdown rounded-t-xl border-l border-r border-t border-gray-300" style="pointer-events: auto; width: 19rem">
+      <div v-show="!showChat" class="bg-white flex flex-col items-stretch shadow overflow-hidden dropdown rounded-t-xl border-l border-r border-t border-gray-300" :class="navBar==1 ? ['pointer-events-none', 'md:pointer-events-auto']: !showChat ? 'pointer-events-auto' : ''" style="width: 19rem">
         <div class="bg-orange-500 flex flex-col items-center">
-          <font-awesome-icon class="text-white my-2 w-full ml-auto mr-4 hover:text-gray-500 cursor-pointer" @click="flipChat" :icon="['fas', 'times']" size="lg" />
-          <div class="flex flex-col items-center px-4 pt-8 pb-12">
+          <font-awesome-icon class="text-white mt-2 w-full ml-auto mr-4 hover:text-orange-700 cursor-pointer" @click="flipChat" :icon="['fas', 'times']" size="lg" />
+          <div class="flex flex-col items-center px-4 pb-3">
             <p class="text-white text-xl font-medium">Let's Chat!</p>
             <p class="text-white text-sm">Ask us any questions</p>
-            <p class="text-white text-sm mt-6">We'll respond as soon as we can</p>
+            <p class="text-white text-sm mt-6 text-center">You are now connected with <br> <span class="text-center font-medium">Johnathan</span></p>
 
           </div>
         </div>
-        <div class="h-64 w-96">
+        
+
+        <div class="max-h-64 h-64 overflow-y-auto flex bg-gray-300 flex-col-reverse">
+
+          <div class="flex items-center mb-6 flex-col items-start w-full">
+            <div class="flex flex-row-reverse items-start w-full">
+              <div class="flex-1 text-sm flex flex-col items-end ml-6 mr-0">
+                <div class="text-sm flex px-3 py-3 shadow rounded mt-1 bg-teal-500 mr-2 bg-white">
+                  <p class="text-white leading-none">Let me know what I should do!</p>
+                </div>
+                  <p class="text-gray-700 leading-none text-right text-xs mr-4 mt-2 w-full">1:25 p.m.</p>
+                
+              </div>
+            </div>
+            
+            
+          </div>
+          <div class="flex items-center flex-col items-start w-full">
+            <div class="flex flex-row-reverse items-start w-full">
+              <div class="flex-1 text-sm flex flex-col items-end ml-6 mr-0">
+                <p class="text-gray-900 leading-none font-medium mr-4">You</p>
+                <div class="text-sm flex px-3 py-3 shadow rounded mt-1 bg-teal-500 mr-2 bg-white">
+                  <p class="text-white leading-none">Hi Jonathan! I was just wondering how long the quote takes to</p>
+                </div>
+                
+              </div>
+            </div>
+            
+            
+          </div>
+
+          <div class="flex items-center mb-6 flex-col items-start w-full">
+            <div class="flex justify-start items-start w-full pl-3">
+              <img class="w-10 h-10 rounded-full mr-1" src="../src/assets/jonathan.jpg" alt="Avatar of Jonathan Reinink">
+              <div class="text-sm flex flex-col items-start">
+                <p class="text-gray-900 leading-none font-medium ml-2">Jonathan Reinink</p>
+                <div class="text-sm flex px-3 py-3 shadow rounded mt-1 mr-2 bg-white">
+                  <p class="text-gray-900 leading-none">Let me know if you have any questions about realAppeal! I'm here to help.</p>
+                </div>
+                  <p class="text-gray-700 leading-none text-right text-xs mr-4 mt-2 w-full px-4">1:25 p.m.</p>
+
+              </div>
+            </div>
+
+            
+            
+            
+          </div>
+          
+          <div class="w-full" style="min-height: 145px">
+            
+          </div>
 
         </div>
         <div class="flex items-center w-96">
@@ -26,7 +77,7 @@
       </div>
     </div>
     <AppealVue v-if="navBar==1" />
-    <div v-if="!(navBar==1)" class="flex flex-col w-full">
+    <div v-if="!(navBar==1)" class="flex flex-col w-full mt-8">
       <div  class="flex flex-col ">
       
 
@@ -57,17 +108,17 @@
         
       </div>
     </div>
-    <div class="bg-white-900 w-full h-12 md:h-16">
+    <div class="bg-white-900 w-full h-8 md:h-16">
 
     </div>
     
-    <div class="bg-white w-full h-64 sm:my-12" >
-      <div class="flex justify-center lg:justify-center items-center pt-1 lg:pt-8 w-full">
+    <div class="bg-white w-full sm:h-64 mb-16 sm:my-24" >
+      <div class="flex justify-center lg:justify-center items-center pt-1 w-full">
         <div class="flex flex-col sm:flex-row w-full items-center">
-          <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end mr-4">
-            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end sm:mr-4">
+            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
           </div>
-          <div class="flex-1 h-full flex items-center ml-4">
+          <div class="flex-1 h-full flex items-center ml-6 sm:ml-4">
               <div class="flex flex-col items-start">
                 <p class="font-medium hidden sm:block sm:text-2xl mb-6 text-gray-800">
                   What is realAppeal?
@@ -94,8 +145,8 @@
       </div>
     </div>
     
-    <div class="bg-blue-900 w-full h-32 md:h-48 mt-32" style="z-index: 10;">
-      <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center pt-6 lg:pt-8 w-full lg:w-full">
+    <div class="bg-blue-900 w-full h-32 md:h-48 flex items-center" style="z-index: 10;">
+      <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center w-full lg:w-full">
         <div class="flex flex-col h-full items-start ">
           <p class="text-white text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium lg:ml-12">See how much you can save on your next property tax bill</p>
           <p class="text-white text-sm block sm:hidden sm:text-lg lg:text-2xl font-medium text-center lg:ml-12">See how much you can save <br> on your next property tax bill</p>
@@ -108,7 +159,7 @@
       </div>
     </div>
 
-    <div class="mt-12 bg-white flex flex-col w-full">
+    <div class="mt-6 lg:mt-12 bg-white flex flex-col w-full">
 
       <div class="w-full flex justify-center py-8">
         <p class="text-4xl lg:text-5xl font-medium text-center text-gray-800">Steps to appeal</p>
@@ -137,7 +188,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -164,7 +215,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -195,7 +246,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -225,7 +276,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -240,7 +291,7 @@
       </div>
 
       <div class="flex mx-auto md:mx-0 md:w-full flex-col-reverse sm:flex-row sm:items-stretch my-8">
-        <div class="md:flex-1 flex flex-row justify-center sm:justify-end sm:items-start">
+        <div class="md:flex-1 flex flex-row justify-center sm:justify-end sm:mr-4 lg:mr-12 sm:items-start">
           <div class="flex flex-col items-center bg-white rounded py-3">
               <div class="flex items-end ">
 
@@ -277,7 +328,7 @@
           </div>
           
         </div>
-        <div class="sm:my-auto mb-4 md:flex-1 h-full flex flex-row justify-center sm:justify-start items-start ml-4 h-full sm:my-auto ">
+        <div class="sm:my-auto mb-4 md:flex-1 h-full flex flex-row justify-center sm:justify-start items-start sm:ml-4 lg:ml-12 h-full sm:my-auto ">
           <div class="flex h-full flex-col justify-center">
             <div class="flex flex-col items-center bg-white rounded py-3 px-6">
               <div class="flex items-end ">
@@ -304,7 +355,7 @@
                 <p class="ml-2  text-sm lg:text-md font-medium text-gray-600 uppercase">of savings</p>
               </div>
 
-              <div class="flex items-center my-4">
+              <div class="flex items-center my-4 px-4 sm:px-6 lg:px-10">
                 <font-awesome-icon class="text-red-500" :icon="['fas', 'ban']" size="lg" />
                 <p class="ml-2">No guarantee of return</p>
               </div>
@@ -316,7 +367,7 @@
     </div>
 
 
-    <div class="w-full h-32 md:h-48 mt-8 sm:mt-16" style="z-index: 10;">
+    <div class="w-full h-32 md:h-48 my-8 md:my-16" style="z-index: 10;">
       <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center pt-6 lg:pt-8 w-full lg:w-full">
         <div class="flex flex-col h-full items-start ">
           <p class="text-blue-800 text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium lg:ml-12">See how much you can save on your next property tax bill</p>
@@ -330,7 +381,7 @@
       </div>
     </div>
 
-    <div class="w-full flex flex-col-reverse sm:flex-row sm:mx-4 mt-12 mb-10">
+    <div class="w-full flex flex-col-reverse sm:flex-row mt-12 mb-10">
       <div class="flex-1 flex flex-col justify-center items-center sm:items-start items-start mt-4 sm:mt-0">
         <div class="flex items-end mt-6 sm:mt-0">
 
@@ -406,6 +457,14 @@ export default {
     homeBoi(){
       this.navBar = 0
     },
+  },
+  computed: {
+    chatStyle() {
+      let outArr = []
+      outArr.push(this.showChat ? 'pb-16' : 'pb-0')
+      outArr.push(this.navBar==1 ? ['opacity-0', 'md:opacity-100', 'pointer-events-none', 'pointer-events-auto']: '')
+      return outArr
+    }
   }
 }
 </script>

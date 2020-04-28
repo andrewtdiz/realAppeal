@@ -1,8 +1,8 @@
 <template>
-  <div class="absolute top-0 right-0 flex justify-center items-center bg-white w-screen" style="z-index: 100">
+  <nav class="fixed top-0 left-0 flex justify-center items-center w-full" style="z-index: 100;">
     
-    <div class="flex flex-col items-stretch w-full">
-      <div class="w-full flex justify-center shadow-md h-20 md:h-24" >
+    <div class="flex flex-col items-stretch w-full " :class="navBar==0 ? ['md:mr-scrollbar', ''] : ''">
+      <div class="w-full flex justify-center bg-white shadow-md h-20 md:h-24" :class="navBar==0 ? ['md:pl-scrollbar'] : ''">
       
         <div class="w-full flex justify-between items-center w-full mx-12 md:mx-24" style="max-width:920px;">
           <div class="flex items-end lg:w-1/2 cursor-pointer" @click="$emit('homeBoi')">
@@ -51,17 +51,17 @@
         </div>
         
       </div>
-      <div class="dropdown flex flex-col overflow-hidden" :class="drop ? 'shadow-md' : ''" :style="{'max-height': drop ? '1000px' : '0px'}">
-        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500" @click="homedrop">
+      <div class="dropdown flex flex-col overflow-hidden bg-white" :class="drop ? 'shadow-md' : ''" :style="{'max-height': drop ? '1000px' : '0px'}">
+        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500 hover:text-orange-500 cursor-pointer" @click="homedrop">
           <p class="text-lg font-medium text-center">Home</p>
         </div>
-        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500" @click="appealdrop">
+        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500 hover:text-orange-500 cursor-pointer" @click="appealdrop">
           <p class="text-lg font-medium text-center">Appeal</p>
         </div>
-        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500">
+        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500 hover:text-orange-500 cursor-pointer">
           <p class="text-lg font-medium text-center">About</p>
         </div>
-        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500">
+        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500 hover:text-orange-500 cursor-pointer">
           <p class="text-lg font-medium text-center">Contact Us</p>
         </div>
       </div>
@@ -69,7 +69,7 @@
 
     
     
-  </div>
+  </nav>
 </template>
 
 <script>
