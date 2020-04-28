@@ -1,5 +1,5 @@
 <template>
-  <div class="md:bg-gray-300 h-screen w-screen flex justify-center items-start mt-8 sm:mt-8 md:mt-24 py-16">
+  <div class="md:bg-gray-300 h-screen w-screen flex justify-center items-start mt-8 sm:mt-8 md:mt-24 pt-10">
     <div class="flex items-stretch md:bg-white rounded-lg md:border md:border-gray-400 shadow mb-12" style="max-width: 950px;">
         <div class="flex flex-col px-10 sm:px-16 py-3 sm:py-6">
             <div class="flex items-start flex-col mb-8 md:mb-16">

@@ -272,7 +272,7 @@
                   <font-awesome-icon class="text-teal-500" :icon="['fas', 'check-circle']" size="lg" />
                   <p class="ml-2">One-on-one consulting</p>
                 </div>
-                <button class="bg-teal-500 text-white mt-6 px-2 py-3 rounded-md w-full hover:bg-teal-600">Appeal</button>
+                <button class="bg-teal-500 text-white mt-6 px-2 py-3 rounded-md w-full hover:bg-teal-600" @click="appealClick">Appeal</button>
               </div>
           </div>
           
@@ -304,8 +304,10 @@
                 <p class="ml-2  text-sm lg:text-md font-medium text-gray-600 uppercase">of savings</p>
               </div>
 
-              <p>No guarantee</p>
-
+              <div class="flex items-center my-4">
+                <font-awesome-icon class="text-red-500" :icon="['fas', 'ban']" size="lg" />
+                <p class="ml-2">No guarantee of return</p>
+              </div>
             </div>
           </div>
           
@@ -329,7 +331,7 @@
     </div>
 
     <div class="w-full flex flex-col-reverse sm:flex-row sm:mx-4 mt-12 mb-10">
-      <div class="flex-1 flex flex-col items-center sm:items-start items-start mt-4 sm:mt-0">
+      <div class="flex-1 flex flex-col justify-center items-center sm:items-start items-start mt-4 sm:mt-0">
         <div class="flex items-end mt-6 sm:mt-0">
 
           <img class="" width="50px" height="50px" alt="realAppeal_icon.png" data-type="image" src="./assets/realappeal_logo.png">
@@ -369,11 +371,12 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckCircle, faCheck, faEnvelopeSquare, faPhoneSquare, faCommentDots, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faCheck, faEnvelopeSquare, faPhoneSquare, faCommentDots, faTimes, faBan } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCheckCircle)
 library.add(faEnvelopeSquare)
 library.add(faPhoneSquare)
+library.add(faBan)
 library.add(faCommentDots)
 library.add(faTimes)
 library.add(faCheck)
