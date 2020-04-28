@@ -77,7 +77,7 @@
       </div>
     </div>
     <AppealVue v-if="navBar==1" />
-    <div v-if="!(navBar==1)" class="flex flex-col w-full mt-8">
+    <div v-if="!(navBar==1)" class="flex flex-col w-full mt-8 ">
       <div  class="flex flex-col ">
       
 
@@ -89,19 +89,19 @@
         <img
                 alt="..."
                 class="absolute top-0 mt-8 lg:mt-16 w-full h-full bg-center bg-cover object-cover"
-                src="../src/assets/home.jpg"
+                src="https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               />
           <div
             id="blackOverlay"
             class="w-full h-full absolute opacity-50 bg-black"
           ></div>
-        <div class="relative mt-auto -mb-8 w-full flex justify-start items-stretch">
-          <div class="w-1/8 h-full"></div>
-          <div class="flex-1 flex justify-start w-full h-full" >
+        <div class="relative mb-auto -mb-8 w-full flex justify-start items-stretch">
+          <div class="w-1/8 h-full hidden sm:block"></div>
+          <div class="flex-1 flex justify-start w-full h-full justify-center sm:justify-start" >
             <div class="flex flex-col items-start lg:ml-16 text-white rounded-md px-8 pt-12 pb-4">
-              <p class="text-lg sm:text-2xl lg:text-3xl leading-none font-medium">Start saving money <br> on your property taxes</p>
-              <p class="text-sm sm:text-lg lg:text-lg leading-none font-normal pt-4">File an appeal and reduce your real estate <br> taxes or get your money back - guaranteed</p>
-              <button class="px-4 text-sm sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded ml-2 lg:ml-4 my-3 mt-4 ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button>
+              <p class="text-lg w-full text-center sm:text-left sm:text-2xl lg:text-3xl leading-none font-medium">Start saving money <br> on your property taxes</p>
+              <p class="text-sm w-full text-center sm:text-left sm:text-lg lg:text-lg leading-none font-normal pt-4">File an appeal and reduce your real estate <br> taxes or get your money back - guaranteed</p>
+              <button class="px-4 text-sm mx-auto sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded lg:ml-4 my-3 mt-4 sm:ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@
       <div class="flex justify-center lg:justify-center items-center pt-1 w-full">
         <div class="flex flex-col sm:flex-row w-full items-center">
           <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end sm:mr-4">
-            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+            <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
           </div>
           <div class="flex-1 h-full flex items-center ml-6 sm:ml-4">
               <div class="flex flex-col items-start">
@@ -188,7 +188,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -215,7 +215,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -246,7 +246,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -276,7 +276,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" src="./assets/realAppealHouse.png">
+          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -382,7 +382,7 @@
     </div>
 
     <div class="w-full flex flex-col-reverse sm:flex-row mt-12 mb-10">
-      <div class="flex-1 flex flex-col justify-center items-center sm:items-start items-start mt-4 sm:mt-0">
+      <div class="flex-1 flex flex-col justify-center items-center sm:items-start items-start mt-4 ml-4 sm:mt-0">
         <div class="flex items-end mt-6 sm:mt-0">
 
           <img class="" width="50px" height="50px" alt="realAppeal_icon.png" src="./assets/realappeal_logo.png">
