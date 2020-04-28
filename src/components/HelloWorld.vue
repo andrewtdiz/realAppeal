@@ -27,7 +27,7 @@
               
 
             </div>
-            <div class="flex flex-col justify-center text-gray-900 hover:text-orange-600 h-full px-3 cursor-pointer" :class="navBar==1 ? ['text-teal-500', 'hover:text-teal-600'] : ['text-gray-900', 'hover:text-orange-600']" @click="appealeyboi" >
+            <div class="flex flex-col justify-center  text-gray-900 hover:text-orange-600 h-full px-3 cursor-pointer" :class="navBar==1 ? ['text-teal-500', 'hover:text-teal-600'] : ['text-gray-900', 'hover:text-orange-600']" @click="appealeyboi" >
               <p class="text-lg font-medium navbutton">Appeal</p>
 
             </div>
@@ -35,14 +35,14 @@
               <p class="text-lg navbutton">Learn More 
               <font-awesome-icon class="ml-1" :icon="['fas', 'chevron-down']" size="xs" /></p>
               <div v-show="hovering" class="absolute top-0 flex flex-col border border-gray-400 rounded bg-blue mt-20 w-48 bg-white shadow-lg cursor-default">
-                <div class="flex justify-center items-center px-12 navbutton py-3 my-2 text-gray-700 hover:text-orange-600 cursor-pointer">
-                  <p>Blog</p>
+                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 my-2 text-gray-600 hover:text-black cursor-pointer">
+                  <p class="text-left w-full">Blog</p>
                 </div>
-                <div class="flex justify-center items-center px-12 navbutton py-3 my-2 text-gray-700 hover:text-orange-600 cursor-pointer">
-                  <p>About</p>
+                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 my-2 text-gray-600 hover:text-black cursor-pointer">
+                  <p class="text-left w-full">About</p>
                 </div>
-                <div class="flex justify-center items-center px-12 navbutton py-3 my-2 text-gray-700 hover:text-orange-600 cursor-pointer">
-                  <p>Contact Us</p>
+                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 my-2 text-gray-600 hover:text-black cursor-pointer">
+                  <p class="text-left w-full">Contact Us</p>
                 </div>
               </div>
             </div>

@@ -14,6 +14,7 @@
             <p class="text-white text-xl font-medium">Let's Chat!</p>
             <p class="text-white text-sm">Ask us any questions</p>
             <p class="text-white text-sm mt-6 text-center">You are now connected with <br> <span class="text-center font-medium">Johnathan</span></p>
+            
 
           </div>
         </div>
@@ -85,23 +86,29 @@
       <div
         class="relative pt-8 lg:pt-16 pb-4 lg:pb-o flex content-center items-stretch justify-center"
         style="min-height: 55vh;"
+        
       >
         <img
                 alt="..."
+                :style="{transform: flipImg ? 'scaleX(1)' : 'scaleX(-1)'}"
                 class="absolute top-0 mt-8 lg:mt-16 w-full h-full bg-center bg-cover object-cover"
-                src="https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                :src="bg[ind]"
               />
           <div
             id="blackOverlay"
             class="w-full h-full absolute opacity-50 bg-black"
           ></div>
-        <div class="relative mb-auto -mb-8 w-full flex justify-start items-stretch">
+        <div class="relative -mb-8 w-full flex justify-start items-stretch" :class="flip ? 'mb-auto' : 'mt-auto'">
           <div class="w-1/8 h-full hidden sm:block"></div>
           <div class="flex-1 flex justify-start w-full h-full justify-center sm:justify-start" >
             <div class="flex flex-col items-start lg:ml-16 text-white rounded-md px-8 pt-12 pb-4">
               <p class="text-lg w-full text-center sm:text-left sm:text-2xl lg:text-3xl leading-none font-medium">Start saving money <br> on your property taxes</p>
               <p class="text-sm w-full text-center sm:text-left sm:text-lg lg:text-lg leading-none font-normal pt-4">File an appeal and reduce your real estate <br> taxes or get your money back - guaranteed</p>
-              <button class="px-4 text-sm mx-auto sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded lg:ml-4 my-3 mt-4 sm:ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button>
+              <div class="flex justify-center sm:justify-start w-full">
+                <button  class="px-4 text-sm mx-auto sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded lg:ml-4 my-3 mt-4 sm:ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button>
+              <!-- <button @click.stop="flipImg = !flipImg" class="px-4 text-sm mx-auto sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded lg:ml-4 my-3 mt-4 sm:ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button> -->
+              </div>
+              
             </div>
           </div>
         </div>
@@ -445,6 +452,12 @@ export default {
       navBar: 0,
       showChat: true,
       appeal: false,
+      flip: false,
+      flipImg: true,
+      ind: 0,
+      bg: [
+        'https://images.pexels.com/photos/672916/pexels-photo-672916.jpeg',
+      ]
     }
   },
   methods: {
@@ -457,6 +470,10 @@ export default {
     homeBoi(){
       this.navBar = 0
     },
+    changeInd() {
+      if(this.ind > this.bg.length-1) this.ind = 0
+      else this.ind += 1
+    }
   },
   computed: {
     chatStyle() {
