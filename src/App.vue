@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="max-h-screen md:overflow-x-hidden overflow-y-visible " :class="navBar==1 ? ['flex', 'flex-col', 'h-screen'] : ''">
     <HelloWorld :navBar="navBar" v-on:appealClick="appealClick" v-on:homeBoi="homeBoi"/>
-    <div class="absolute top-0 h-screen flex flex-col justify-end items-end px-10" :class="chatStyle" style="z-index: 100; width:99%; pointer-events:none;">
+    <div class="fixed top-0 h-screen flex flex-col justify-end items-end px-10" :class="chatStyle" style="z-index: 100; width:99%; pointer-events:none;">
       <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-24 sm:h-24 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
         <font-awesome-icon class="text-white my-2 w-full h-full hidden sm:block" :icon="['fas', 'comment-dots']" size="3x" />
         <font-awesome-icon class="text-white my-2 w-full h-full block sm:hidden" :icon="['fas', 'comment-dots']" size="2x" />
