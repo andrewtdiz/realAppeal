@@ -5,7 +5,7 @@
       <div class="w-full flex justify-center shadow-md h-20 md:h-24" >
       
         <div class="w-full flex justify-between items-center w-full mx-12 md:mx-24" style="max-width:920px;">
-          <div class="flex items-end lg:w-1/2">
+          <div class="flex items-end lg:w-1/2 cursor-pointer" @click="$emit('homeBoi')">
 
             <img class="" width="50px" height="50px" alt="realAppeal_icon.png" data-type="image" src="../assets/realappeal_logo.png">
 
@@ -52,10 +52,10 @@
         
       </div>
       <div class="dropdown flex flex-col overflow-hidden" :class="drop ? 'shadow-md' : ''" :style="{'max-height': drop ? '1000px' : '0px'}">
-        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500">
+        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500" @click="homedrop">
           <p class="text-lg font-medium text-center">Home</p>
         </div>
-        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500" @click="appealeyboi">
+        <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500" @click="appealdrop">
           <p class="text-lg font-medium text-center">Appeal</p>
         </div>
         <div class="flex flex-col justify-center items-center py-6 border-b border-gray-500">
@@ -94,6 +94,14 @@ export default {
     },
     appealeyboi() {
       this.$emit('appealClick')
+    },
+    appealdrop() {
+      this.$emit('appealClick')
+      this.drop = !this.drop
+    },
+    homedrop() {
+      this.$emit('homeBoi')
+      this.drop = !this.drop
     }
   }
 }

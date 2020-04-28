@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="max-h-screen overflow-x-hidden" :class="!(navBar==1) ? 'overflow-y-scroll' : 'overflow-y-auto'">
     <HelloWorld :navBar="navBar" v-on:appealClick="appealClick" v-on:homeBoi="homeBoi"/>
-    <div class="absolute top-0 w-screen h-screen flex flex-col justify-end items-end px-12 select-none" :class="showChat ? 'pb-12' : 'pb-0'" style="z-index: 100; pointer-events: none;">
+    <div class="absolute top-0 w-screen h-screen flex flex-col justify-end items-end px-10 select-none" :class="showChat ? 'pb-16' : 'pb-0'" style="z-index: 100; pointer-events: none;">
       <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-24 sm:h-24 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
         <font-awesome-icon class="text-white my-2 w-full h-full hidden sm:block" :icon="['fas', 'comment-dots']" size="3x" />
         <font-awesome-icon class="text-white my-2 w-full h-full block sm:hidden" :icon="['fas', 'comment-dots']" size="2x" />
@@ -65,7 +65,7 @@
       <div class="flex justify-center lg:justify-center items-center pt-1 lg:pt-8 w-full">
         <div class="flex flex-col sm:flex-row w-full items-center">
           <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end mr-4">
-            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="IMG_9594_edited.jpg" data-type="image" itemprop="image" src="https://static.wixstatic.com/media/d3cd5a_b3d12df0e45c470bb9785ea17b6cb962~mv2.jpg/v1/fill/w_336,h_169,al_c,q_80,usm_0.66_1.00_0.01/IMG_9594_edited.webp">
+            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
           </div>
           <div class="flex-1 h-full flex items-center ml-4">
               <div class="flex flex-col items-start">
@@ -137,7 +137,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="IMG_9594_edited.jpg" data-type="image" itemprop="image" src="https://static.wixstatic.com/media/d3cd5a_b3d12df0e45c470bb9785ea17b6cb962~mv2.jpg/v1/fill/w_336,h_169,al_c,q_80,usm_0.66_1.00_0.01/IMG_9594_edited.webp">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -164,7 +164,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="IMG_9594_edited.jpg" data-type="image" itemprop="image" src="https://static.wixstatic.com/media/d3cd5a_b3d12df0e45c470bb9785ea17b6cb962~mv2.jpg/v1/fill/w_336,h_169,al_c,q_80,usm_0.66_1.00_0.01/IMG_9594_edited.webp">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -195,7 +195,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="IMG_9594_edited.jpg" data-type="image" itemprop="image" src="https://static.wixstatic.com/media/d3cd5a_b3d12df0e45c470bb9785ea17b6cb962~mv2.jpg/v1/fill/w_336,h_169,al_c,q_80,usm_0.66_1.00_0.01/IMG_9594_edited.webp">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
@@ -225,7 +225,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="IMG_9594_edited.jpg" data-type="image" itemprop="image" src="https://static.wixstatic.com/media/d3cd5a_b3d12df0e45c470bb9785ea17b6cb962~mv2.jpg/v1/fill/w_336,h_169,al_c,q_80,usm_0.66_1.00_0.01/IMG_9594_edited.webp">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="./assets/realAppealHouse.jpg" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
         </div>
       </div>
 
