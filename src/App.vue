@@ -116,7 +116,7 @@
       <div class="flex justify-center lg:justify-center items-center pt-1 w-full">
         <div class="flex flex-col sm:flex-row w-full items-center">
           <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end sm:mr-4">
-            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+            <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
           </div>
           <div class="flex-1 h-full flex items-center ml-6 sm:ml-4">
               <div class="flex flex-col items-start">
@@ -188,7 +188,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -215,7 +215,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -246,7 +246,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -276,7 +276,7 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" data-type="image" itemprop="image" src="./assets/realAppealHouse.jpg">
+          <img id="comp-k8v6mqzgimgimage" style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" src="./assets/realAppealHouse.png">
         </div>
       </div>
 
@@ -295,7 +295,7 @@
           <div class="flex flex-col items-center bg-white rounded py-3">
               <div class="flex items-end ">
 
-                <img class="" width="50px" height="50px" alt="realAppeal_icon.png" data-type="image" src="./assets/realappeal_logo.png">
+                <img class="" width="50px" height="50px" alt="realAppeal_icon.png" src="./assets/realappeal_logo.png">
 
                 <div class="flex items-baseline mb-1">
                   <p class="md:text-2xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
@@ -385,7 +385,7 @@
       <div class="flex-1 flex flex-col justify-center items-center sm:items-start items-start mt-4 sm:mt-0">
         <div class="flex items-end mt-6 sm:mt-0">
 
-          <img class="" width="50px" height="50px" alt="realAppeal_icon.png" data-type="image" src="./assets/realappeal_logo.png">
+          <img class="" width="50px" height="50px" alt="realAppeal_icon.png" src="./assets/realappeal_logo.png">
 
           <div class="flex items-baseline mb-1">
             <p class="md:text-2xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
