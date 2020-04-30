@@ -1,9 +1,9 @@
 <template>
-  <div id="app" class="max-h-screen md:overflow-x-hidden overflow-y-visible " :class="navBar==1 ? ['flex', 'flex-col', 'h-screen'] : ''">
+  <div id="app" class="max-h-screen min-h-screen flex flex-col">
     <HelloWorld :navBar="navBar" v-on:appealClick="appealClick" v-on:homeBoi="homeBoi"/>
     <div class="fixed top-0 h-screen flex flex-col justify-end items-end px-10" :class="chatStyle" style="z-index: 100; width:99%; pointer-events:none;">
-      <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-24 sm:h-24 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
-        <font-awesome-icon class="text-white my-2 w-full h-full hidden sm:block" :icon="['fas', 'comment-dots']" size="3x" />
+      <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-18 sm:h-18 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
+        <font-awesome-icon class="text-white my-2 w-full h-full hidden sm:block" :icon="['fas', 'comment-dots']" size="2x" />
         <font-awesome-icon class="text-white my-2 w-full h-full block sm:hidden" :icon="['fas', 'comment-dots']" size="2x" />
 
       </div>
@@ -78,7 +78,7 @@
       </div>
     </div>
     <AppealVue v-if="navBar==1" />
-    <div v-if="!(navBar==1)" class="flex flex-col w-full mt-8 ">
+    <div v-if="!(navBar==1)" class="flex flex-col w-full -mt-16">
       <div  class="flex flex-col ">
       
 
@@ -92,8 +92,9 @@
                 alt="..."
                 :style="{transform: flipImg ? 'scaleX(1)' : 'scaleX(-1)'}"
                 class="absolute top-0 mt-8 lg:mt-16 w-full h-full bg-center bg-cover object-cover"
-                :src="bg[ind]"
+                src="./assets/sanfran.png"
               />
+              
           <div
             id="blackOverlay"
             class="w-full h-full absolute opacity-50 bg-black"
@@ -101,10 +102,22 @@
         <div class="relative -mb-8 w-full flex justify-start items-stretch" :class="flip ? 'mb-auto' : 'mt-auto'">
           <div class="w-1/8 h-full hidden sm:block"></div>
           <div class="flex-1 flex justify-start w-full h-full justify-center sm:justify-start" >
-            <div class="flex flex-col items-start lg:ml-16 text-white rounded-md px-8 pt-12 pb-4">
-              <p class="text-lg w-full text-center sm:text-left sm:text-2xl lg:text-3xl leading-none font-medium">Start saving money <br> on your property taxes</p>
-              <p class="text-sm w-full text-center sm:text-left sm:text-lg lg:text-lg leading-none font-normal pt-4">File an appeal and reduce your real estate <br> taxes or get your money back - guaranteed</p>
-              <div class="flex justify-center sm:justify-start w-full">
+            <div class="flex flex-col items-start lg:ml-16 text-white rounded-md px-8 pt-12 pb-4 ">
+              <p data-aos="fade-down"
+                  data-aos-delay="200"
+                  data-aos-duration="800"
+                  data-aos-easing="ease-in-out"
+                  data-aos-once="true" class="text-2xl w-full text-center sm:text-left sm:text-2xl lg:text-3xl leading-none font-medium ">Start saving money <br> on your property taxes</p>
+              <p data-aos="fade-up"
+                  data-aos-delay="0"
+                  data-aos-duration="600"
+                  data-aos-easing="ease-in-out"
+                  data-aos-once="true" class="text-sm w-full text-center sm:text-left sm:text-lg lg:text-lg leading-none font-normal pt-4 hidden sm:block ">File an appeal and reduce your real estate <br> taxes or get your money back - guaranteed</p>
+              <div data-aos="fade-up"
+                  data-aos-delay="0"
+                  data-aos-duration="600"
+                  data-aos-easing="ease-in-out"
+                  data-aos-once="true" class="flex justify-center sm:justify-start w-full">
                 <button  class="px-4 text-sm mx-auto sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded lg:ml-4 my-3 mt-4 sm:ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button>
               <!-- <button @click.stop="flipImg = !flipImg" class="px-4 text-sm mx-auto sm:text-md py-1 lg:px-8 lg:py-2 shadow-lg text-teal-600 bg-white rounded lg:ml-4 my-3 mt-4 sm:ml-5 lg:mt-6 hover:bg-teal-500 hover:text-white">Learn More</button> -->
               </div>
@@ -119,30 +132,41 @@
 
     </div>
     
-    <div class="bg-white w-full sm:h-64 mb-16 sm:my-24" >
-      <div class="flex justify-center lg:justify-center items-center pt-1 w-full">
+    <div class="bg-white w-full sm:h-64 my-12 sm:my-24 " >
+      <div data-aos="fade-up"
+                  data-aos-delay="200"
+                  data-aos-duration="800"
+                  data-aos-easing="ease-in-out"
+                  data-aos-once="true" class="flex justify-center lg:justify-center items-center pt-1 w-full">
         <div class="flex flex-col sm:flex-row w-full items-center">
-          <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end sm:mr-4">
-            <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end sm:mr-12 animated">
+            <div class="flex flex-col items-center">
+              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
+              <div class="flex items-baseline mb-1">
+                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
+              
+              </div>
+            </div>
+            
           </div>
-          <div class="flex-1 h-full flex items-center ml-6 sm:ml-4">
+          <div  class="flex-1 h-full flex items-center sm:ml-4">
               <div class="flex flex-col items-start">
                 <p class="font-medium hidden sm:block sm:text-2xl mb-6 text-gray-800">
                   What is realAppeal?
                 </p>
-                <p class="text-md sm:text-lg font-light hidden lg:block">realAppeal is an online solution for porperty tax appeals. <br>
+                <p class="text-md sm:text-lg font-light hidden lg:block animated">realAppeal is an online solution for porperty tax appeals. <br>
                 We help homeowners identify if they're paying too much in <br>
                 real estate taxes. If so, we can quickly appeal their property <br>
                 taxes getting property owners the savings they deserve. We are <br>
                 currently filing appeals for customers nationwide, in accordance <br>
                 with local laws and deadlines.</p>
-                <p class="text-md hidden font-light sm:block mr-8 lg:hidden">realAppeal is an online solution for porperty tax appeals.
+                <p class="text-md hidden font-light sm:block mr-8 lg:hidden animated">realAppeal is an online solution for porperty tax appeals.
                 We help homeowners identify if they're paying too much in
                 real estate taxes. If so, we can quickly appeal their property
                 taxes getting property owners the savings they deserve. We are
                 currently filing appeals for customers nationwide, in accordance
                 with local laws and deadlines.</p>
-                <p class="text-md font-light block mr-8 mt-8 sm:hidden">realAppeal is an online solution for porperty tax appeals.
+                <p class="text-md font-light block sm:hidden ml-12 mr-8 animated">realAppeal is an online solution for porperty tax appeals.
                 We help homeowners identify if they're paying too much in
                 real estate taxes.</p>
               </div>
@@ -160,7 +184,7 @@
           <p class="text-white pt-6 hidden md:block text-sm font-light lg:text-lg lg:ml-12">Use our free property tax savings calculator and find out how <br> much you could lower your real estate taxes</p>
         </div>
         <div class="flex flex-col md:pl-6">
-          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white bg-orange-600 rounded lg:ml-4 my-3 mt-4 md:ml-5 hover:bg-orange-700">Calculate Savings</button>
+          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white bg-orange-500 rounded lg:ml-4 my-3 mt-4 md:ml-5 hover:bg-orange-700">Calculate Savings</button>
 
         </div>
       </div>
@@ -195,7 +219,13 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <div class="flex flex-col items-center">
+              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
+              <div class="flex items-baseline mb-1">
+                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
+              
+              </div>
+            </div>
         </div>
       </div>
 
@@ -222,7 +252,13 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <div class="flex flex-col items-center">
+              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
+              <div class="flex items-baseline mb-1">
+                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
+              
+              </div>
+            </div>
         </div>
       </div>
 
@@ -253,7 +289,13 @@
           
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/realAppealHouse.png">
+          <div class="flex flex-col items-center">
+              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
+              <div class="flex items-baseline mb-1">
+                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
+              
+              </div>
+            </div>
         </div>
       </div>
 
@@ -284,6 +326,7 @@
         </div>
         <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
           <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" src="./assets/realAppealHouse.png">
+          
         </div>
       </div>
 
@@ -291,21 +334,27 @@
 
     </div>
 
-    <div class="mt-12 bg-white flex flex-col w-full bg-blue-900 pb-4">
+    <div  class="mt-12 bg-white flex flex-col w-full bg-blue-900 pb-4">
 
       <div class="w-full flex justify-center my-4">
         <p class="text-3xl lg:text-5xl font-medium text-center text-white uppercase" style="width: 850px">Pricing</p>
       </div>
 
       <div class="flex mx-auto md:mx-0 md:w-full flex-col-reverse sm:flex-row sm:items-stretch my-8">
-        <div class="md:flex-1 flex flex-row justify-center sm:justify-end sm:mr-4 lg:mr-12 sm:items-start">
+        <div data-aos="fade-right"
+            data-aos-offset="200"
+            data-aos-delay="0"
+            data-aos-duration="400"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
+             class="md:flex-1 flex flex-row justify-center sm:justify-end sm:mr-4 lg:mr-12 sm:items-start">
           <div class="flex flex-col items-center bg-white rounded py-3">
               <div class="flex items-end ">
 
                 <img class="" width="50px" height="50px" alt="realAppeal_icon.png" src="./assets/realappeal_logo.png">
 
-                <div class="flex items-baseline mb-1">
-                  <p class="md:text-2xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
+                <div  class="flex items-baseline mb-1">
+                  <p  class="md:text-2xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
                 
                 </div>
               
@@ -335,7 +384,13 @@
           </div>
           
         </div>
-        <div class="sm:my-auto mb-4 md:flex-1 h-full flex flex-row justify-center sm:justify-start items-start sm:ml-4 lg:ml-12 h-full sm:my-auto ">
+        <div data-aos="fade-left"
+            data-aos-offset="200"
+            data-aos-delay="0"
+            data-aos-duration="400"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
+            class="sm:my-auto mb-4 md:flex-1 h-full flex flex-row justify-center sm:justify-start items-start sm:ml-4 lg:ml-12 h-full sm:my-auto ">
           <div class="flex h-full flex-col justify-center">
             <div class="flex flex-col items-center bg-white rounded py-3 px-6">
               <div class="flex items-end ">
@@ -374,7 +429,13 @@
     </div>
 
 
-    <div class="w-full h-32 md:h-48 my-8 md:my-16" style="z-index: 10;">
+    <div data-aos="fade-up"
+        data-aos-offset="200"
+        data-aos-delay="0"
+        data-aos-duration="400"
+        data-aos-easing="ease-in-out"
+        data-aos-once="true"
+        class="w-full h-32 md:h-48 my-8 md:my-16" style="z-index: 10;">
       <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center pt-6 lg:pt-8 w-full lg:w-full">
         <div class="flex flex-col h-full items-start ">
           <p class="text-blue-800 text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium lg:ml-12">See how much you can save on your next property tax bill</p>
@@ -455,10 +516,16 @@ export default {
       flip: false,
       flipImg: true,
       ind: 0,
+      width: 0,
       bg: [
-        'https://images.pexels.com/photos/672916/pexels-photo-672916.jpeg',
+        'https://images.pexels.com/photos/672916/pexels-photo-672916.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260g',
+        './assets/sanfran.png',
       ]
     }
+  },
+  created() {
+    this.width = window.innerWidth
+    if(this.width < 600) this.ind = 1
   },
   methods: {
     flipChat() {
@@ -478,7 +545,7 @@ export default {
   computed: {
     chatStyle() {
       let outArr = []
-      outArr.push(this.showChat ? 'pb-16' : 'pb-0')
+      outArr.push(this.showChat ? 'pb-10' : 'pb-0')
       outArr.push(this.navBar==1 ? ['opacity-0', 'md:opacity-100', 'pointer-events-none', 'pointer-events-auto']: '')
       return outArr
     }
@@ -489,6 +556,9 @@ export default {
 <style scoped>
 .dropdown {
   transition: all 0.3s;
+}
+.delay-2 {
+animation-delay: .5s;
 }
 </style>
 
