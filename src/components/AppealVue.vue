@@ -635,9 +635,9 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
 
             </div>
 
-            <div v-else-if="section==4" key="4" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+            <div v-else-if="section==4 && !savingsCalculated" key="5" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col items-center">    
-                    <p class="text-4xl lg:text-2xl mt-4 font-bold text-left text-teal-500 leading-tight" >Calculating your savings now</p>
+                    <p class="text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Calculating your savings now..</p>
                     <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
                         <p class="text-lg w-full text-gray-800 text-left mb-12">This will only take a moment</p>
 
@@ -647,24 +647,39 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
             
             </div>
 
-            <div v-else-if="section==5" key="5"
+            <div v-else-if="section==4 && savingsCalculated" key="5-1"
                     data-aos="fade-up"
                     data-aos-delay="0"
                     data-aos-duration="900"
                     data-aos-once="true" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
-                <div class="flex flex-col items-center">    
-                    <p class="text-3xl mt-4 font-bold text-left text-teal-500 leading-tight" >Hey! I'm Cal (Computer Assisted Loan Interface). <br> I'm here to help you through the evaluation process. Ready to get started?</p>
-                    <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
-                        <p  >Make sure you have access to: </p>
-                        <ul class="list-disc flex-col flex ">
-                            <li >Lorem consectetur adipisicing elit</li>
-                            <li >Lorem ipsum dolor sit tur adipisicing elit</li>
-                            <li >Dolor sit aconsectetur adipisicing elit</li>
-                        </ul>
+                <div class="flex flex-col w-full items-center">  
+                    <p class="text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >We estimate your savings will be:</p>
+
+
+                    <div class="flex items-center">
+                        <p class="text-3xl mt-4 font-bold text-left text-gray-700 leading-tight" >$</p>
+
+                        <p class="text-6xl mt-4 font-bold text-left text-gray-800 leading-tight" >486</p>
+                        
                     </div>
-                    <div class="cursor-pointer bg-teal-500 text-white mt-6 h-12 w-48 px-2 py-3 rounded-md flex justify-center hover:bg-teal-600" @click="toStartPage">
-                        <p v-if="!submitted">Estimate my savings</p>
+                    
+                    <p class="text-lg w-full text-gray-800 text-center mt-8 mb-4">Click the "Finalize my savings" button to complete the tax savings process!</p>
+                    
+
+                    <div class="cursor-pointer bg-teal-500 text-white mt-6 h-12 w-48 px-2 py-3 rounded-md flex justify-center hover:bg-teal-600" @click="toNextPage">
+                        <p v-if="!submitted">Finalize my savings</p>
                         <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
+                    </div>
+                </div>
+
+            
+            </div>
+
+            <div v-else-if="section==5" key="6" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+                <div class="flex flex-col items-center">    
+                    <p class="text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >The form ends here. I haven't finished past this point</p>
+                    <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
+
                     </div>
                 </div>
 
@@ -748,7 +763,7 @@ export default {
         inputAgreedToPrivacy: false,
         hasRead: false,
 
-
+        savingsCalculated: false,
         primaryDifferent: -1,
         submitted: false,
         progStatus: 0,
@@ -791,7 +806,7 @@ export default {
         if(this.section == 3) {
             this.createScrollChecker()
         } else if(this.section == 4) {
-            setTimeout(() => this.toNextPage(), 4000)
+            setTimeout(() => this.savingsCalculated = true, 4000)
         }
     },
     createScrollChecker() {
