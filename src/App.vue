@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="max-h-screen min-h-screen flex flex-col">
+  <div id="app" class="min-h-screen flex flex-col" :class="navBar==0 ? 'max-h-screen' : ''">
     <HelloWorld :navBar="navBar" v-on:appealClick="appealClick" v-on:homeBoi="homeBoi"/>
     <div class="fixed top-0 h-screen flex flex-col justify-end items-end px-10" :class="chatStyle" style="z-index: 100; width:99%; pointer-events:none;">
       <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-18 sm:h-18 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
@@ -197,7 +197,7 @@
       </div>
 
       <div class="flex w-full flex-col-reverse sm:flex-row sm:items-stretch py-8">
-        <div class="flex-1 flex flex-col sm:flex-col items-center sm:items-end h-full">
+        <div class="w-1/2 flex flex-col sm:flex-col sm:mr-8 sm:mr-24 items-center sm:mt-auto sm:items-end h-full">
           <div class="flex flex-col items-center">
             <div class="flex flex-col items-start sm:ml-3">
               <div class="flex flex-col items-start">
@@ -218,19 +218,20 @@
           </div>
           
         </div>
-        <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <div class="flex flex-col items-center">
-              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
-              <div class="flex items-baseline mb-1">
-                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
-              
-              </div>
-            </div>
+        <div data-aos="fade-left"
+            data-aos-offset="0"
+            data-aos-delay="0"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
+              class="w-1/2 flex flex-col items-center sm:items-start sm:pl-24 h-full mb-6 sm:mb-0">
+          <img class="w-48 sm:w-64" alt="realAppeal" itemprop="image" src="./assets/Group2.svg">
+
         </div>
       </div>
 
       <div class="flex w-full flex-col-reverse sm:flex-row-reverse sm:items-stretch py-8">
-        <div class="flex-1 flex flex-col sm:flex-col items-center sm:items-start h-full">
+        <div class="w-1/2 flex flex-col sm:flex-col sm:mt-auto items-center sm:ml-24 sm:items-start sm:ml-8 h-full">
           <div class="flex flex-col items-center">
             <div class="flex flex-col items-start">
               <div class="flex flex-col items-start">
@@ -238,7 +239,7 @@
                   <p class="text-3xl text-white font-medium mb-1">2</p>
                 </div>
                 <p class="font-medium sm:text-2xl mt-4 mb-2 text-gray-800">
-                  Estimate tax savings
+                  We estimate your tax savings
                 </p>
               </div>
               <p class="text-md sm:text-lg font-light hidden lg:block">We calculate your potential tax savings by using <br>
@@ -251,19 +252,20 @@
           </div>
           
         </div>
-        <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <div class="flex flex-col items-center">
-              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
-              <div class="flex items-baseline mb-1">
-                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
-              
-              </div>
-            </div>
+        <div data-aos="fade-right"
+            data-aos-offset="150"
+            data-aos-delay="0"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
+               class="w-1/2 flex flex-col items-center sm:items-end h-full sm:pr-24 mb-6 sm:mb-0">
+          <img class="w-48 sm:w-64" style="transform: translate(0px,10px)" alt="realAppeal" itemprop="image" src="./assets/Group3.svg">
+
         </div>
       </div>
 
       <div class="flex w-full flex-col-reverse sm:flex-row sm:items-stretch py-8">
-        <div class="flex-1 flex flex-col sm:flex-col items-center sm:items-end h-full">
+        <div class="w-1/2 flex flex-col sm:flex-col sm:mt-auto items-center sm:mr-24 sm:pr-8 sm:items-end h-full">
           <div class="flex flex-col items-center">
             
             <div class="flex flex-col items-start sm:mr-3">
@@ -272,7 +274,7 @@
                   <p class="text-3xl text-white font-medium mb-1">3</p>
                 </div>
                 <p class="font-medium sm:text-2xl mt-4 mb-2 text-gray-800">
-                  Hassle-free appeal
+                  We submit your appeal, hassle-free
                 </p>
               </div>
               
@@ -288,20 +290,21 @@
           </div>
           
         </div>
-        <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <div class="flex flex-col items-center">
-              <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
-              <div class="flex items-baseline mb-1">
-                <p class="text-5xl text-md font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
-              
-              </div>
-            </div>
+        <div data-aos="fade-left"
+            data-aos-offset="150"
+            data-aos-delay="0"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
+               class="w-1/2 flex flex-col items-center sm:items-start sm:pl-24 h-full mb-6 sm:mb-0">
+          <img class="w-48 sm:w-64" alt="realAppeal" itemprop="image" src="./assets/Group4.svg">
+          
         </div>
       </div>
 
 
       <div class="flex w-full flex-col-reverse sm:flex-row-reverse sm:items-stretch py-8">
-        <div class="flex-1 flex flex-col sm:flex-col items-center sm:items-start h-full">
+        <div class="w-1/2 flex flex-col sm:flex-col sm:mt-auto sm:ml-24 items-center sm:items-start h-full">
           <div class="flex flex-col items-center">
             <div class="flex flex-col items-start">
               <div class="flex flex-col items-start">
@@ -309,7 +312,7 @@
                   <p class="text-3xl text-white font-medium mb-1">4</p>
                 </div>
                 <p class="font-medium sm:text-2xl mt-4 mb-2 text-gray-800">
-                  Save money
+                  You save money
                 </p>
               </div>
               <p class="text-md sm:text-lg font-light hidden lg:block">Within 6-8 weeks you will hear from your <br>
@@ -324,9 +327,15 @@
           </div>
           
         </div>
-        <div class="flex-1 flex flex-col items-center h-full mb-6 sm:mb-0">
-          <img style="object-position:50% 50%;width:336px;height:169px;object-fit:cover" alt="realAppeal" src="./assets/realAppealHouse.png">
-          
+        <div data-aos="fade-right"
+            data-aos-offset="150"
+            data-aos-delay="0"
+            data-aos-duration="600"
+            data-aos-easing="ease-in-out"
+            data-aos-once="true"
+               class="w-1/2 flex flex-col items-center sm:items-end sm:pr-24 h-full mb-6 sm:mb-0">
+          <img class="w-48 sm:w-64" alt="realAppeal" itemprop="image" src="./assets/Group5.svg">
+
         </div>
       </div>
 
@@ -334,15 +343,15 @@
 
     </div>
 
-    <div  class="mt-12 bg-white flex flex-col w-full bg-blue-900 pb-4">
+    <div  class="mt-12 bg-white flex flex-col w-full bg-blue-900 pb-4 overflow-x-hidden">
 
       <div class="w-full flex justify-center my-4">
-        <p class="text-3xl lg:text-5xl font-medium text-center text-white uppercase" style="width: 850px">Pricing</p>
+        <p class="text-3xl lg:text-5xl font-medium text-center text-white uppercase " style="width: 850px">Pricing</p>
       </div>
 
       <div class="flex mx-auto md:mx-0 md:w-full flex-col-reverse sm:flex-row sm:items-stretch my-8">
         <div data-aos="fade-right"
-            data-aos-offset="200"
+            data-aos-offset="150"
             data-aos-delay="0"
             data-aos-duration="400"
             data-aos-easing="ease-in-out"
@@ -385,7 +394,7 @@
           
         </div>
         <div data-aos="fade-left"
-            data-aos-offset="200"
+            data-aos-offset="150"
             data-aos-delay="0"
             data-aos-duration="400"
             data-aos-easing="ease-in-out"
@@ -430,12 +439,12 @@
 
 
     <div data-aos="fade-up"
-        data-aos-offset="200"
+        data-aos-offset="150"
         data-aos-delay="0"
         data-aos-duration="400"
         data-aos-easing="ease-in-out"
         data-aos-once="true"
-        class="w-full h-32 md:h-48 my-8 md:my-16" style="z-index: 10;">
+        class="w-full h-32 md:h-48 my-8 md:my-16 overflow-x-hidden" style="z-index: 10;">
       <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center pt-6 lg:pt-8 w-full lg:w-full">
         <div class="flex flex-col h-full items-start ">
           <p class="text-blue-800 text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium lg:ml-12">See how much you can save on your next property tax bill</p>

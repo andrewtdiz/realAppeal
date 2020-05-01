@@ -1,8 +1,8 @@
 <template>
   <nav class="flex justify-center items-center w-full" style="z-index: 100;">
     
-    <div class="flex flex-col items-stretch w-full " :class="navBar==0 ? ['md:mr-scrollbar', ''] : ''">
-      <div class="w-full flex justify-center bg-white shadow-md h-20 md:h-24" :class="navBar==0 ? ['md:pl-scrollbar'] : ''">
+    <div class="flex flex-col items-stretch w-full " :class="navBar==0 ? ['', ''] : ''">
+      <div class="w-full flex justify-center bg-white shadow-md h-20 md:h-24" :class="navBar==0 ? [''] : ''">
       
         <div class="w-full flex justify-between items-stretch sm:items-center w-full mx-8 md:mx-24" style="max-width:920px;">
           <div class="flex items-end lg:w-1/2 cursor-pointer my-auto sm:my-0" @click="homeClicked">
