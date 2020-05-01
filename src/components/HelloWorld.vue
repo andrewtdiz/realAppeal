@@ -4,7 +4,7 @@
     <div class="flex flex-col items-stretch w-full " :class="navBar==0 ? ['', ''] : ''">
       <div class="w-full flex justify-center bg-white shadow-md h-20 md:h-24" :class="navBar==0 ? [''] : ''">
       
-        <div class="w-full flex justify-between items-stretch sm:items-center w-full mx-8 md:mx-24" style="max-width:920px;">
+        <div class="w-full flex justify-between items-stretch sm:items-center w-full mx-8 lg:mx-0" style="max-width:920px;">
           <div class="flex items-end lg:w-1/2 cursor-pointer my-auto sm:my-0" @click="homeClicked">
 
             <img class="" width="50px" height="50px" alt="realAppeal_icon.png" data-type="image" src="../assets/realappeal_logo.png">
@@ -28,7 +28,7 @@
 
           
 
-          <div class="hidden lg:h-full lg:flex items-center mt-3 justify-around w-1/2  lg:block">
+          <div class="hidden lg:h-full lg:flex items-center mt-3 justify-between w-2/5  lg:block">
             <div class="flex flex-col justify-center h-full px-3 cursor-pointer" :class="navBar==0 ? ['text-teal-500'] : ['text-gray-900', 'hover:text-orange-600']" @click="$emit('homeBoi')">
               <p class="text-lg font-medium navbutton">Home</p>
               

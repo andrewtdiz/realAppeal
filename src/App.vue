@@ -99,10 +99,10 @@
             id="blackOverlay"
             class="w-full h-full absolute opacity-50 bg-black"
           ></div>
-        <div class="relative -mb-8 w-full flex justify-start items-stretch" :class="flip ? 'mb-auto' : 'mt-auto'">
+        <div class="relative -mb-8 w-screen flex justify-center items-stretch overflow-x-hidden overflow-y-hidden" :class="flip ? 'mb-auto' : 'mt-auto'">
           <div class="w-1/8 h-full hidden sm:block"></div>
-          <div class="flex-1 flex justify-start w-full h-full justify-center sm:justify-start" >
-            <div class="flex flex-col items-start lg:ml-16 text-white rounded-md px-8 pt-12 pb-4 ">
+          <div class="flex justify-start h-full w-full justify-center sm:justify-start" style="max-width: 920px;">
+            <div class="flex flex-col items-start text-white rounded-md pt-12 pb-4 pr-auto">
               <p data-aos="fade-down"
                   data-aos-delay="200"
                   data-aos-duration="800"
@@ -190,10 +190,10 @@
       </div>
     </div>
 
-    <div class="mt-6 lg:mt-12 bg-white flex flex-col w-full">
+    <div class="mt-6 lg:mt-12 bg-white flex flex-col w-full overflow-x-hidden">
 
       <div class="w-full flex justify-center py-8">
-        <p class="text-4xl lg:text-5xl font-medium text-center text-gray-800">Steps to appeal</p>
+        <p class="text-4xl lg:text-5xl font-medium text-center text-gray-800 ">Steps to appeal</p>
       </div>
 
       <div class="flex w-full flex-col-reverse sm:flex-row sm:items-stretch py-8">
