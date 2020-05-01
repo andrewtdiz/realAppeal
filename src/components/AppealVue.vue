@@ -426,7 +426,7 @@
                                 </div>
 
                                 <div class="flex flex-col justify-center w-full items-start mb-4">
-                                    <label class="block tracking-wide text-gray-700 text-md font-medium mb-3 w-1/2 text-left" >
+                                    <label class="block tracking-wide text-gray-700 text-md ml-1 font-medium mb-3 w-1/2 text-left" >
                                         Is this property your Primary Residence?
                                     </label>
                                     <div class="flex-1 justify-between flex">
@@ -635,49 +635,41 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
 
             </div>
 
-            <div v-if="section==4" key="0" class="absolute top-0 left-0 right-0 mx-auto flex justify-center" style="max-width: 750px;">
-            <div class="flex flex-col items-center">    
-                <img data-aos="fade-down"
-                    data-aos-delay="1000"
-                    data-aos-duration="600"
-                    data-aos-easing="ease-in-out"
-                    data-aos-once="true" class="w-48 h-48 rounded-full mr-1 border-4 border-white border-5 border-teal-500 shadow-xl" src="../assets/jonathan.jpg" alt="Avatar of Jonathan Reinink">
-                <p data-aos="fade-down"
-                    data-aos-delay="400"
-                    data-aos-duration="500"
-                    data-aos-easing="ease-in-out"
-                    data-aos-once="true" class="text-3xl lg:text-2xl mt-4 font-bold text-left text-gray-700 leading-tight" >Hey! I'm Cal (Computer Assisted Loan Interface). <br> I'm here to help you through the evaluation process. Ready to get started?</p>
-                <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
-                    <p data-aos="fade"
-                    data-aos-delay="600"
-                    data-aos-duration="500"
-                    data-aos-easing="ease-in-out"
-                    data-aos-once="true" >Make sure you have access to: </p>
-                    <ul class="list-disc flex-col flex ">
-                        <li data-aos="fade-left"
-                            data-aos-delay="800"
-                            data-aos-duration="700"
-                            data-aos-once="true">Lorem consectetur adipisicing elit</li>
-                        <li data-aos="fade-left"
-                            data-aos-delay="850"
-                            data-aos-duration="700"
-                            data-aos-once="true">Lorem ipsum dolor sit tur adipisicing elit</li>
-                        <li data-aos="fade-left"
-                            data-aos-delay="900"
-                            data-aos-duration="700"
-                            data-aos-once="true">Dolor sit aconsectetur adipisicing elit</li>
-                    </ul>
+            <div v-else-if="section==4" key="4" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+                <div class="flex flex-col items-center">    
+                    <p class="text-4xl lg:text-2xl mt-4 font-bold text-left text-teal-500 leading-tight" >Calculating your savings now</p>
+                    <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
+                        <p class="text-lg w-full text-gray-800 text-left mb-12">This will only take a moment</p>
+
+                    </div>
                 </div>
-                <div data-aos="fade-up"
-                        data-aos-delay="950"
-                        data-aos-duration="900"
-                        data-aos-once="true" class="cursor-pointer bg-teal-500 text-white mt-6 h-12 w-48 px-2 py-3 rounded-md flex justify-center hover:bg-teal-600" @click="toStartPage">
-                    <p v-if="!submitted">Estimate my savings</p>
-                    <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
-                </div>
+
+            
             </div>
-        
-        </div>
+
+            <div v-else-if="section==5" key="5"
+                    data-aos="fade-up"
+                    data-aos-delay="0"
+                    data-aos-duration="900"
+                    data-aos-once="true" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+                <div class="flex flex-col items-center">    
+                    <p class="text-3xl mt-4 font-bold text-left text-teal-500 leading-tight" >Hey! I'm Cal (Computer Assisted Loan Interface). <br> I'm here to help you through the evaluation process. Ready to get started?</p>
+                    <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
+                        <p  >Make sure you have access to: </p>
+                        <ul class="list-disc flex-col flex ">
+                            <li >Lorem consectetur adipisicing elit</li>
+                            <li >Lorem ipsum dolor sit tur adipisicing elit</li>
+                            <li >Dolor sit aconsectetur adipisicing elit</li>
+                        </ul>
+                    </div>
+                    <div class="cursor-pointer bg-teal-500 text-white mt-6 h-12 w-48 px-2 py-3 rounded-md flex justify-center hover:bg-teal-600" @click="toStartPage">
+                        <p v-if="!submitted">Estimate my savings</p>
+                        <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
+                    </div>
+                </div>
+
+            
+            </div>
 
         </transition-group>
 
@@ -790,12 +782,16 @@ export default {
         this.section++
     },
     toNextPage(){
+        window.console.log("here i am", this.section)
+
         this.sectionPrev = this.section
         this.direction = true
         this.section++
         this.progStatus += (1/(this.sectionArr.length-1))*100
         if(this.section == 3) {
             this.createScrollChecker()
+        } else if(this.section == 4) {
+            setTimeout(() => this.toNextPage(), 4000)
         }
     },
     createScrollChecker() {
