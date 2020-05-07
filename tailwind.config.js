@@ -44,7 +44,7 @@ module.exports = {
         300: '#fbd38d',
         400: '#f6ad55',
         500: '#ee8572',
-        600: '#dd6b20',
+        600: '#fffff',
         700: '#c05621',
         800: '#9c4221',
         900: '#7b341e',
@@ -282,6 +282,7 @@ module.exports = {
     }),
     inset: {
       '0': '0',
+      '4' : '-2rem',
       auto: 'auto',
     },
     letterSpacing: {

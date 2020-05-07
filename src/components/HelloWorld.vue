@@ -2,7 +2,7 @@
   <nav class="flex justify-center items-center w-full" style="z-index: 100;">
     
     <div class="flex flex-col items-stretch w-full " :class="navBar==0 ? ['', ''] : ''">
-      <div class="w-full flex justify-center bg-white shadow-md h-20 md:h-24" :class="navBar==0 ? [''] : ''">
+      <div class="w-full flex justify-center bg-white shadow-md h-20 md:h-20" :class="navBar==0 ? [''] : ''">
       
         <div class="w-full flex justify-between items-stretch sm:items-center w-full mx-8 lg:mx-0" style="max-width:920px;">
           <div class="flex items-end lg:w-1/2 cursor-pointer my-auto sm:my-0" @click="homeClicked">
@@ -10,7 +10,7 @@
             <img class="" width="50px" height="50px" alt="realAppeal_icon.png" data-type="image" src="../assets/realappeal_logo.png">
 
             <div class="flex items-baseline mb-1">
-              <p class="md:text-2xl text-xl font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
+              <p class="text-xl md:text-2xl font-bold ml-2 text-gray-700"> real<span class=" text-teal-500 ">Appeal</span> </p>
             
               <p class="text-sm hidden sm:block font-light ml-2 "> simple & fast property tax appeals</p>
             </div>
@@ -30,25 +30,25 @@
 
           <div class="hidden lg:h-full lg:flex items-center mt-3 justify-between w-2/5  lg:block">
             <div class="flex flex-col justify-center h-full px-3 cursor-pointer" :class="navBar==0 ? ['text-teal-500'] : ['text-gray-900', 'hover:text-orange-600']" @click="$emit('homeBoi')">
-              <p class="text-lg font-medium navbutton">Home</p>
+              <p class="text-md font-medium navbutton calcsavingsbtn">Home</p>
               
 
             </div>
-            <div class="flex flex-col justify-center h-full px-3 cursor-pointer" :class="navBar==1 ? ['text-teal-500'] : ['text-gray-900', 'hover:text-orange-600']" @click="appealeyboi" >
-              <p class="text-lg font-medium navbutton">Appeal</p>
+            <div class="flex flex-col justify-center h-full px-3 cursor-pointer" :class="navBar==1 ? ['text-teal-500'] : ['text-gray-900', 'calcsavingsbtn']" @click="appealeyboi" >
+              <p class="text-md font-medium navbutton">Appeal</p>
 
             </div>
             <div class="flex flex-col justify-center font-medium text-gray-900 hover:text-orange-600 h-full px-3 cursor-pointer" @mouseenter="hovering = true" @mouseleave="hovering = false">
-              <p class="text-lg navbutton">Learn More 
+              <p class="text-md navbutton calcsavingsbtn" :class="hovering ? 'calcsavingsbtn2' : ''">Learn More 
               <font-awesome-icon class="ml-1" :icon="['fas', 'chevron-down']" size="sm" /></p>
-              <div v-show="hovering" class="absolute top-0 flex flex-col border border-gray-400 rounded bg-blue mt-20 w-48 bg-white shadow-lg cursor-default">
-                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 my-2 text-gray-600 hover:text-black cursor-pointer">
+              <div class="absolute flex flex-col border border-gray-400 rounded bg-blue mt-20 w-48 bg-white shadow-lg cursor-default navbutton" :class="hovering ? ['top-0', 'opacity-100', 'pointer-events-auto'] : ['pointer-events-none', 'top-4', 'opacity-0']">
+                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 text-gray-600 hover:text-black hover:bg-gray-200 cursor-pointer">
                   <p class="text-left w-full">Blog</p>
                 </div>
-                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 my-2 text-gray-600 hover:text-black cursor-pointer">
+                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 text-gray-600 hover:text-black hover:bg-gray-200 cursor-pointer">
                   <p class="text-left w-full">About</p>
                 </div>
-                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 my-2 text-gray-600 hover:text-black cursor-pointer">
+                <div class="flex justify-center items-center pl-4 pr-12 navbutton py-3 text-gray-600 hover:text-black hover:bg-gray-200 cursor-pointer">
                   <p class="text-left w-full">Contact Us</p>
                 </div>
               </div>
@@ -155,11 +155,22 @@ a {
     transition: all 0.2s;
 }
 
+.navbutton2 {
+  transition: all 4s;
+}
+
 p {
   user-select: none;
 }
 
 .dropdown {
   transition: all 0.3s;
+}
+
+.calcsavingsbtn:hover {
+  color: #d27564;
+}
+.calcsavingsbtn2 {
+  color: #d27564;
 }
 </style>

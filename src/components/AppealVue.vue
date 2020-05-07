@@ -1,22 +1,22 @@
 <template>
-  <div class="md:bg-white flex flex-col justify-start items-stretch overflow-y-auto mb-auto overflow-x-hidden">
+  <div class="md:bg-white flex flex-col justify-start items-stretch w-full overflow-y-auto mb-auto overflow-x-hidden">
     <transition 
         enter-active-class="animated fadeInUp"
         leave-active-class="animated fadeOutLeft"
         mode="out-in"
         >
-    <div v-if="section > -1" class="w-full  ml-auto w-5/6 mb-4 mt-10 flex justify-center relative" style="height: 3px;">
+    <div v-if="$store.state.appealSection > -1" class="w-full  ml-auto w-5/6 mb-4 mt-8 md:mt-10 flex justify-center relative" style="height: 3px;">
         
 
         <div class="bg-gray-400 rounded-md w-5/6 flex justify-center items-center relative">
             <div v-for="(item,ind) in sectionArr" :key="ind" class="absolute top-0 w-32 h-16 -mt-4 -ml-16 flex flex-col items-center" style="z-index: 10" :style="{left: (ind/(sectionArr.length-1))*100 + '%'}">
-                <div class="w-8 h-8 rounded-full flex flex-col items-center justify-center bg-gray-400 progbar" :class="(ind)<=section ? 'bg-orange-500' : 'bg-gray-400'">
-                    <p class="text-md text-white">{{ind+1}}</p>
+                <div class="w-8 h-8 rounded-full flex flex-col items-center justify-center bg-gray-400 progbar" :class="(ind)<=$store.state.appealSection ? 'bg-orange-500' : 'bg-gray-400'">
+                    <p class="text-sm md:text-md text-white">{{ind+1}}</p>
                 </div>
-                <p class="absolute bottom-0 font-medium text-center w-full mt-1 text-sm uppercase progbar" :class="(ind)<=section ? 'text-gray-700' : 'text-gray-400'">{{item}}</p>
+                <p class="absolute hidden md:block bottom-0 font-medium text-center w-full mt-1 text-sm uppercase progbar" :class="(ind)<=$store.state.appealSection ? 'text-gray-700' : 'text-gray-400'">{{item}}</p>
             </div>
 
-            <div class="absolute rounded-l left-0 top:0 h-full bg-orange-500 flex-1 overflow-x-hidden overflow-y-hidden dropdslow overflow-x-hidden" :style="{width: progStatus + '%'}">
+            <div class="absolute hidden md:block rounded-l left-0 top:0 h-full bg-orange-500 flex-1 overflow-x-hidden overflow-y-hidden dropdslow overflow-x-hidden" :style="{width: progStatus + '%'}">
 
 
                 <!-- <div class="absolute top-0 left-0 h-full flex justify-center items-center mt-auto w-5/6" style="width: 75vw">
@@ -24,6 +24,12 @@
                 </div> -->
                 
             </div>
+            <!-- <div class="absolute rounded-l hidden md:block w-full top:0 h-full bg-orange-500 flex-1 overflow-x-hidden overflow-y-hidden dropdslow overflow-x-hidden" :style="{width: progStatus + '%'}">
+                
+                <p class="absolute hidden md:block bottom-0 font-medium text-center w-full mt-1 text-sm uppercase progbar" :class="(ind)<=section ? 'text-gray-700' : 'text-gray-400'">{{item}}</p>
+                
+                
+            </div> -->
             <!-- <div class="h-full flex justify-center items-center">
                 <p class="text-lg inline font-medium">Progress: {{progStatus}}%</p>
             </div> -->
@@ -32,16 +38,16 @@
     </div>
     
     </transition>
-    <div v-if="section == -1" class="w-full  ml-auto w-5/6 mb-4 mt-10 flex justify-center relative" style="height: 3px;">
+    <div v-if="$store.state.appealSection == -1" class="w-full  ml-auto w-5/6 mb-4 mt-10 flex justify-center relative" style="height: 3px;">
         
     </div>
     
 
-    <div class="flex justify-center h-screen w-full mt-12 relative overflow-x-hidden relative navbar" >
+    <div class="flex justify-center w-full sm:mt-12 relative overflow-x-hidden relative navbar overflow-y-hidden" :style="{'min-height': ($store.state.appealSection==3) ? '100vh' :  '110vh'}" >
         <transition
         leave-active-class="animated fadeOutLeft" 
         >
-        <div v-if="section==-1" key="0" class="absolute top-0 left-0 right-0 mx-auto flex justify-center" style="max-width: 750px;">
+        <div v-if="$store.state.appealSection == -1" key="0" class="absolute top-0 left-0 right-0 mx-auto flex justify-center" style="max-width: 750px;">
             <div class="flex flex-col items-center">    
                 <img data-aos="fade-down"
                     data-aos-delay="300"
@@ -52,8 +58,8 @@
                     data-aos-delay="400"
                     data-aos-duration="500"
                     data-aos-easing="ease-in-out"
-                    data-aos-once="true" class="text-3xl lg:text-2xl mt-4 font-bold text-left text-gray-700 leading-tight" >Hey! I'm Cal (Computer Assisted Loan Interface). <br> I'm here to help you through the evaluation process. Ready to get started?</p>
-                <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
+                    data-aos-once="true" class="text-md lg:text-2xl mt-4 font-bold text-left text-gray-700 leading-tight" >Hey! I'm Cal (Computer Assisted Loan Interface). <br> I'm here to help you through the evaluation process. Ready to get started?</p>
+                <div  class="flex items-start flex-col mt-2 w-full text-sm text-gray-700">
                     <p data-aos="fade"
                     data-aos-delay="600"
                     data-aos-duration="500"
@@ -77,8 +83,8 @@
                 <div data-aos="fade-up"
                         data-aos-delay="950"
                         data-aos-duration="900"
-                        data-aos-once="true" class="cursor-pointer bg-teal-500 text-white mt-6 h-12 w-48 px-2 py-3 rounded-md flex justify-center hover:bg-teal-600" @click="toStartPage">
-                    <p v-if="!submitted">Estimate my savings</p>
+                        data-aos-once="true" @click="$store.commit('increment')" class="cursor-pointer bg-teal-500 text-white mt-6 h-8 text-sm md:text-md md:h-12 w-48 md:px-2 py-3 rounded-md flex justify-center items-center hover:bg-teal-600">
+                    <p v-if="!submitted" >Estimate my savings</p>
                     <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
                 </div>
             </div>
@@ -92,40 +98,40 @@
             name="list" tag="div">
             
 
-            <div v-if="section==0" key="1"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-8" style="max-width: 950px;">
-                <div class="flex items-stretch rounded-lg mb-12 overflow-y-hidden dropdslow overflow-x-hidden" style="" :style="{'max-height' : submitted ? '100px' : '1250px'}">
-                    <div class="flex flex-col px-10 sm:px-16 pt-3 pb-20 sm:py-12">
-                        <div class="flex items-start flex-col mb-2 pt-6 sm:pt-0 md:mb-4">
-                            <p class="text-4xl font-bold text-left w-full leading-tight text-teal-500">Let's start saving you money</p>
+            <div v-if="$store.state.appealSection == -0" key="1"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
+                <div class="flex items-stretch rounded-lg mb-12 dropdslow ">
+                    <div class="flex flex-col px-2 md:px-16 pt-3 pb-20 ">
+                        <div class="flex items-start flex-col mb-2 md:pt-6 md:mb-4">
+                            <p class="text-2xl md:text-4xl font-bold text-center md:text-left w-full leading-tight text-teal-500">Let's start saving you money</p>
                         </div>
                         
-                        <p class="text-xl text-left w-full text-gray-800 my-2">Every year hundreds of families overpay on their property tax </p>
-                        <p class="text-xl text-left w-full text-gray-800 my-2">To get started, tell us about your property</p>
+                        <p class="text-md md:text-xl text-left w-full text-gray-800 my-2">Every year hundreds of families overpay on their property tax </p>
+                        <p class="text-md md:text-xl text-left w-full text-gray-800 my-2">To get started, tell us about your property</p>
 
                         <form class="w-full mt-6">
                             
                             <div class="flex flex-wrap -mx-3 mb-2">
 
-                                <div class="w-full px-3 mb-10">
-                                    <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                <div class="w-full px-3 mb-2 md:mb-10">
+                                    <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                         Address
                                     </label>
-                                    <input v-model="inputAddress" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="42 Wallaby Way">
+                                    <input v-model="inputAddress" class="border-gray-400 appearance-none text-sm block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="42 Wallaby Way">
                                 </div>
-                                <div class="w-full flex items-center mb-10">
+                                <div class="w-full flex items-center mb-2 md:mb-10">
                                     <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                             City
                                         </label>
-                                        <input v-model="inputCity" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Los Angeles">
+                                        <input v-model="inputCity" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Los Angeles">
                                     </div>
 
                                     <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                             State
                                         </label>
                                         <div class="relative">
-                                            <select v-model="inputState" class="cursor-pointer border-gray-400 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
+                                            <select v-model="inputState" class="cursor-pointer text-sm md:text-md border-gray-400 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
                                                 <option selected>California</option>
                                                 <option>Texas</option>
                                                 <option>New York</option>
@@ -136,10 +142,10 @@
                                         </div>
                                     </div>
                                     <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                             Zip Code
                                         </label>
-                                        <input v-model="inputZipCode" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
+                                        <input v-model="inputZipCode" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
                                     </div>
                                 </div>
                                 
@@ -148,10 +154,10 @@
                                 
                             </div>
                             
-                            <div class="flex items-center justify-end w-full">
+                            <div class="hidden flex items-center justify-end w-full">
                                 
                                 <div class="flex justify-center items-center cursor-pointer w-1/3">
-                                    <div class="ml-auto bg-teal-500 text-white mt-6 h-12 px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" @click="toNextPage">
+                                    <div class="ml-auto bg-teal-500 text-white mt-2 md:mt-6 h-12 px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" @click="toNextPage">
                                         <p v-if="!submitted">Continue</p>
                                         <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                         <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
@@ -168,47 +174,47 @@
 
             </div>
 
-            <div  v-else-if="section==1" key="2"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-8" style="max-width: 950px;">
+            <div  v-else-if="$store.state.appealSection == 1" key="2"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
                 <div class="flex items-stretch rounded-lg mb-12 overflow-y-hidden dropdslow overflow-x-hidden" style="max-width: 750px;" :style="{'max-height' : submitted ? '100px' : '1250px'}">
-                <div class="flex flex-col items-stretch px-10 sm:px-16 pt-3 pb-20 sm:py-6" style="min-width: 750px;">
-                    <div class="flex items-start flex-col mb-8 pt-6 sm:pt-0 md:mb-12">
-                        <p class="text-4xl font-bold text-left w-full leading-tight text-teal-500">Great job!</p>
+                <div class="flex w-full flex-col items-stretch px-2 md:px-16 pt-3 md:pb-20" style="max-width: 750px;">
+                    <div class="flex items-start flex-col mb-2 md:mb-8 md:pt-3 sm:pt-0 md:mb-2">
+                        <p class="text-2xl md:text-4xl font-bold text-center md:text-left w-full leading-tight text-teal-500">Great job!</p>
                     </div>
                     
-                    <p class="text-lg w-full text-gray-800 text-left mb-12">In order to maximize your savings, we need to know a little more about you.</p>
+                    <p class="text-md md:text-xl w-full text-gray-800 text-left mb-6 md:mb-12">In order to maximize your savings, we need to know a little more about you.</p>
 
                     <form class="w-full ">
                         
                         <div class="flex flex-wrap -mx-3 mb-2">
                             <div class="w-full flex items-center">
                                 <div class="w-full px-3 mb-6">
-                                    <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                    <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                             First name
                                     </label>
-                                    <input v-model="inputFirstName" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Jane">
+                                    <input v-model="inputFirstName" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Jane">
                                 </div>
                                 <div class="w-full px-3 mb-6">
-                                    <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                    <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                             Last name
                                     </label>
-                                    <input v-model="inputLastName" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Doe">
+                                    <input v-model="inputLastName" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Doe">
                                 </div>
                             </div>
                             
                             
 
                             <div class="w-full px-3 mb-6">
-                                <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                     Email
                                 </label>
-                                <input v-model="inputEmail" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="email" placeholder="JaneDoe@email.com">
+                                <input v-model="inputEmail" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="email" placeholder="JaneDoe@email.com">
                             </div>
 
                             <div class="w-1/2 px-3 mb-6">
-                                <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                     Phone Number
                                 </label>
-                                <input v-model="inputPhoneNum" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="email" placeholder="(123)-456-7890">
+                                <input v-model="inputPhoneNum" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="email" placeholder="(123)-456-7890">
                             </div>
                             
                         </div>
@@ -216,16 +222,16 @@
 
                         
                         </form>
-                        <div class="flex items-center justify-between w-full">
+                        <div class="hidden flex items-center justify-between w-full">
                             <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-gray-300 text-gray-900 mt-6 h-12 px-10 py-3 rounded-md flex items-center justify-center hover:bg-gray-400" @click="toPrevious">
+                                <div class="bg-gray-300 text-gray-900 mr-auto mt-2 md:mt-6 h-12 px-4 md:px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" @click="toPrevious">
                                     <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                     
                                     <p v-if="!submitted" class="">Back</p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-teal-500 text-white mt-6 h-12 px-12 py-3 rounded-md flex items-center justify-center hover:bg-teal-600" @click="toNextPage">
+                                <div class="ml-auto bg-teal-500 text-white mt-2 md:mt-6 h-12 px-4 md:px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" @click="toNextPage">
                                     <p v-if="!submitted">Continue</p>
                                     <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                     <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
@@ -237,41 +243,25 @@
             </div>
             </div>
 
-            <div v-else-if="section==2" key="3"  class="absolute top-0 left-0 overflow-y-hidden right-0 mx-auto flex justify-center mt-4 overflow-x-hidden" style="max-width: 950px;">
-                <div class="flex items-stretch rounded-lg mb-12 overflow-y-hidden dropdslow overflow-x-hidden" style="" >
-                    <div class="flex flex-col px-10 sm:px-16 pt-3 pb-20 sm:py-12">
-                        <div class="flex items-start flex-col mb-2 pt-6 sm:pt-0 md:mb-4">
-                            <p class="text-4xl font-bold text-left w-full leading-tight text-teal-500">Nice to meet you, {{inputFirstName || 'Chris'}}</p>
+
+            <div v-else-if="$store.state.appealSection == 2" key="3"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
+                <div class="flex items-stretch rounded-lg mb-12 dropdslow ">
+                    <div class="flex flex-col px-2 md:px-16 pt-3 pb-20 md:py-2">
+                        <div class="flex items-start flex-col mb-2 md:pt-2 md:mb-4">
+                            <p class="text-2xl md:text-4xl font-bold text-center md:text-left w-full leading-tight text-teal-500">Nice to meet you,  {{inputFirstName || 'Chris'}}</p>
                         </div>
                         
-                        <p class="text-xl text-left w-full text-gray-800 my-2">We have a few more questions that are specific to the property tax laws of your county </p>
+                        <p class="text-md md:text-xl text-left w-full text-gray-800 my-2">We have a few more questions that are specific to the property tax laws of your county  </p>
 
-
-                        <form class="w-full mt-12">
+                        <form class="w-full flex flex-wrap mt-4 md:mt-6">
                             
-                            <div class="flex flex-wrap -mx-3 mb-2">
-                                <div class="flex items-center w-full">
-                                    <div class="w-1/2">
-                                    <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-3" >
-                                        Are you a Veteran?
-                                    </label>
-                                    <div class="w-full justify-around flex">
-
-                                        
-                                        
-                                    </div>
-                                </div>
-                                <div class="w-1/2">
-                                    <label class="ml-10 block tracking-wide text-gray-700 text-md font-medium mb-3" >
-                                        Are you over the age of 65?
-                                    </label>
+                            <div class="w-1/2 flex flex-col items-center pr-2">
+                                <p class="w-full block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
+                                    Are you a Veteran?
+                                </p>
+                                <div class="w-full justify-between flex mb-2 md:mb-4 ">
                                     
-                                </div>
-                                </div>
-                                
-                                <div class="w-full justify-between flex mb-10 ">
-                                    
-                                    <div class="h-32 w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="vetStat(1)" :class="inputVetStatus==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="vetStat(1)" :class="inputVetStatus==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class="h-1/2 w-1/2 fill-current mt-2" viewBox="0 0 424 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0)">
                                             <path d="M246.831 43.466H199.054C194.911 43.466 191.552 46.8238 191.552 50.9677V74.8452C191.552 92.0242 215.148 103.454 219.879 105.57C220.854 106.007 
@@ -329,9 +319,9 @@
                                             </clipPath>
                                             </defs>
                                         </svg>
-                                        <p class="font-medium text-md text-center mt-1 select-none">Yes</p>
+                                        <p class="font-medium text-sm md:text-md text-center mt-1 select-none">Yes</p>
                                     </div>
-                                    <div class="h-32 w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer mr-8" @click="vetStat(0)" :class="inputVetStatus==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="vetStat(0)" :class="inputVetStatus==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class='fill-current h-1/2 w-1/2 mt-2' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                         <g>
@@ -369,10 +359,20 @@
                                         </g>
                                         </svg>
 
-                                        <p class="font-medium text-md text-center mt-1 select-none">No</p>
+                                        <p class="font-medium text-sm md:text-md text-center mt-1 select-none">No</p>
                                     </div>
 
-                                    <div class="h-32 w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer ml-8" @click="ageStat(1)" :class="inputAgeOver65==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    
+                                    
+                                </div>
+                            </div>
+                            <div class="w-1/2 flex flex-col items-center pl-2">
+                                <p class="w-full block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
+                                    Are you over the age of 65?
+                                </p>
+
+                                <div class="w-full justify-between flex mb-2 md:mb-4 ">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="ageStat(1)" :class="inputAgeOver65==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class="h-1/2 w-1/2 fill-current mt-2" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                         <g>
@@ -400,9 +400,9 @@
                                             </g>
                                         </g>
                                         </svg>
-                                        <p class="font-medium text-md text-center mt-1 select-none">Yes</p>
+                                        <p class="font-medium text-sm md:text-md text-center mt-1 select-none">Yes</p>
                                     </div>
-                                    <div class="h-32 w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="ageStat(0)" :class="inputAgeOver65==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="ageStat(0)" :class="inputAgeOver65==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         
                                         <svg class='fill-current h-1/2 w-1/2 mt-2' viewBox="0 0 424 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M438 384H374V288C373.974 264.669 364.694 242.301 348.196 225.804C331.699 209.306 309.331 200.026 286 200H205.561C207.853 194.103 208.546 187.706 207.57 
@@ -420,73 +420,77 @@
                                         </svg>
 
 
-                                        <p class="font-medium text-md text-center mt-1 select-none">No</p>
+                                        <p class="font-medium text-sm md:text-md text-center mt-1 select-none">No</p>
                                     </div>
+                                </div>
                                     
-                                </div>
-
-                                <div class="flex flex-col justify-center w-full items-start mb-4">
-                                    <label class="block tracking-wide text-gray-700 text-md ml-1 font-medium mb-3 w-1/2 text-left" >
-                                        Is this property your Primary Residence?
-                                    </label>
-                                    <div class="flex-1 justify-between flex">
-                                        <div class="h-32 w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="primaryResid(1)" :class="primaryDifferent==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
-                                            <svg class="fill-current h-1/2 w-1/2 mt-2" viewBox="0 0 513 513" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0)">
-                                                <path d="M502.001 492.002H458.001V413.002C458.001 407.479 453.523 403.002 448.001 403.002C442.479 403.002 438.001 407.479 438.001 413.002V492.002H318.001V302.002C318.001 296.479 313.523 292.002 308.001 292.002H204.001C198.479 292.002 194.001 296.479 194.001 302.002V492.002H74.0011V266.001H77.8491C80.5011 
-                                                266.001 83.0441 264.947 84.9201 263.072L256.001 91.991L427.082 263.072C428.958 264.947 431.501 266.001 434.153 266.001H438.001V341.001C438.001 346.524 442.479 351.001 448.001 351.001C453.523 351.001 458.001 346.524 458.001 341.001V266.001H502.001C506.046 266.001 509.692 263.564 511.24 259.828C512.788 256.092 
-                                                511.931 251.79 509.072 248.93L263.072 2.92997C259.166 -0.975029 252.836 -0.975029 248.929 2.92997L154.929 96.93C151.024 100.835 151.024 107.167 154.929 111.072C158.835 114.978 165.167 114.978 169.072 111.072L256.001 24.143L477.858 246.001H438.295L263.072 70.778C259.166 66.873 252.836 66.873 248.929 70.778L73.7061 
-                                                246.001H34.1431L113.072 167.073C116.977 163.168 116.977 156.836 113.072 152.93C109.167 149.026 102.835 149.025 98.9291 152.93L2.92905 248.93C0.0700519 251.79 -0.786948 256.091 0.761052 259.828C2.30905 263.565 5.95605 266.001 10.0011 266.001H54.0011V492.001H10.0011C4.47905 492.001 0.00105194 496.478 0.00105194 502.001C0.00105194 507.524 4.47905 512.001 10.0011 512.001H64.0011H204.001H308.001H448.001H502.001C507.523 512.001 512.001 507.524 512.001 502.001C512.001 496.478 507.523 492.002 502.001 492.002ZM298.001 492.002H214.001V312.002H298.001V492.002Z"/>
-                                                <path d="M406.001 292.002H350.001C344.479 292.002 340.001 296.479 340.001 302.002V402.002C340.001 407.525 344.479 412.002 350.001 412.002H406.001C411.523 412.002 416.001 407.525 416.001 402.002V302.002C416.001 296.479 411.523 292.002 406.001 292.002ZM396.001 392.002H360.001V312.002H396.001V392.002Z"/>
-                                                <path d="M162.001 292.002H106.001C100.479 292.002 96.001 296.479 96.001 302.002V402.002C96.001 407.525 100.479 412.002 106.001 412.002H162.001C167.523 412.002 172.001 407.525 172.001 402.002V302.002C172.001 296.479 167.523 292.002 162.001 292.002ZM152.001 392.002H116.001V312.002H152.001V392.002Z"/>
-                                                <path d="M256.001 164.322C230.637 164.322 210.001 184.958 210.001 210.322C210.001 235.686 230.637 256.322 256.001 256.322C281.365 256.322 302.001 235.686 302.001 210.322C302.001 184.958 281.365 164.322 256.001 164.322ZM256.001 236.322C241.664 236.322 230.001 224.658 230.001 210.322C230.001 195.986 241.664 184.322 256.001 184.322C270.338 184.322 282.001 195.986 282.001 210.322C282.001 224.658 270.338 236.322 256.001 236.322Z"/>
-                                                <path d="M244.07 394.932C242.211 393.072 239.63 392.002 237.001 392.002C234.371 392.002 231.791 393.072 229.931 394.932C228.071 396.792 227.001 399.372 227.001 402.002C227.001 404.632 228.07 407.212 229.931 409.072C231.792 410.932 234.371 412.002 237.001 412.002C239.631 412.002 242.211 410.932 244.07 409.072C245.93 407.212 247.001 404.632 247.001 402.002C247.001 399.372 245.931 396.792 244.07 394.932Z"/>
-                                                <path d="M140.07 125.932C138.211 124.072 135.631 123.002 133.001 123.002C130.371 123.002 127.791 124.072 125.931 125.932C124.071 127.792 123.001 130.372 123.001 133.002C123.001 135.632 124.07 138.212 125.931 140.072C127.792 141.932 130.371 143.002 133.001 143.002C135.631 143.002 138.211 141.932 140.07 140.072C141.93 138.212 143.001 135.632 143.001 133.002C143.001 130.372 141.931 127.792 140.07 125.932Z"/>
-                                                <path d="M455.07 367.261C453.211 365.402 450.63 364.331 448.001 364.331C445.371 364.331 442.791 365.401 440.931 367.261C439.071 369.131 438.001 371.701 438.001 374.331C438.001 376.961 439.07 379.541 440.931 381.411C442.791 383.271 445.371 384.331 448.001 384.331C450.631 384.331 453.211 383.271 455.07 381.411C456.93 379.541 458.001 376.971 458.001 374.331C458.001 371.701 456.931 369.121 455.07 367.261Z"/>
-                                                </g>
-                                                <defs>
-                                                <clipPath id="clip0">
-                                                <rect width="512.002" height="512.002" fill="white"/>
-                                                </clipPath>
-                                                </defs>
-                                            </svg>
-                                            
-                                            <p class="font-medium text-md text-center mt-1 select-none">Yes</p>
-                                        </div>
-                                        <div class="h-32 w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="primaryResid(0)" :class="primaryDifferent==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
-                                            
-                                            <svg class="fill-current h-1/2 w-1/2 mt-2" enable-background="new 0 0 512.014 512.014" viewBox="0 0 512.014 512.014" xmlns="http://www.w3.org/2000/svg"><g>
-                                                <path d="m162.554 86.993h212.198c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-212.198c-8.834 0-16.021 7.187-16.021 16.021v52.517c0 8.834 7.187 16.021 16.021 16.021h212.198c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-212.198c-.563 0-1.021-.458-1.021-1.021v-52.517c.001-.563.459-1.021 1.021-1.021z"/><path d="m157.495 200.686h18.205c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5h-18.205c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m341.865 185.686h-124.24c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h124.241c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.501-7.5z"/><path d="m157.495 251.428h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 303.694h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 355.96h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 408.227h220.736c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-220.736c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m500.579 148.473-2.908-37.638c-.693-8.982-5.593-16.774-12.654-21.504v-14.967c0-12.405-8.412-22.876-19.83-26.025-.285-26.702-22.084-48.339-48.852-48.339h-359.703c-.093 0-.183.011-.274.014-.226.001-.45-.009-.676-.005-26.421.506-47.916 22.422-47.916 48.856v16.025c0 5.207 4.236 9.443 9.443 9.443h73.289v124.168c0 4.143 3.358 7.5 7.5 7.5s7.5-3.357 7.5-7.5v-148.818c0-12.843-5.112-25.395-14.049-34.683h324.886c18.559 0 33.673 15.008 33.857 33.526-11.083 3.363-19.173 13.671-19.173 25.838v14.966c-7.062 4.73-11.961 12.522-12.654 21.503l-2.634 34.083-21.302 14.759c-9.425 6.53-15.052 17.274-15.052 28.74v100.166l-7.8 14.999c-1.911 3.675-.48 8.203 3.194 10.114 1.105.575 2.288.848 3.454.848 2.708 0 5.324-1.473 6.66-4.042l8.646-16.626c.556-1.068.846-2.255.846-3.46v-101.997c0-6.547 3.213-12.682 8.595-16.41l11.389-7.891c-3.548 55.099-3.42 110.803.414 165.823.287 4.132 3.854 7.249 8.003 6.96 4.132-.287 7.248-3.87 6.96-8.003-1.541-22.12-2.475-44.352-2.808-66.609h62.17c-.711 47.042-4.144 94.049-10.252 140.642h-41.672c-1.838-14.024-3.462-28.204-4.81-42.265-.396-4.123-4.063-7.144-8.182-6.75-4.123.396-7.146 4.059-6.75 8.182 1.575 16.428 3.504 33.03 5.732 49.348l5.843 42.784c.649 4.76 3.029 8.934 6.445 11.922.103.493.257.982.466 1.462l15.22 34.964c1.191 2.737 3.893 4.507 6.877 4.507s5.686-1.77 6.877-4.507l15.22-34.964c.209-.479.363-.969.466-1.462 3.417-2.988 5.796-7.162 6.445-11.922l5.843-42.784c11.878-86.975 14.472-175.451 7.711-262.971zm-410.081-89.139h-67.732v-10.469c0-18.319 14.895-33.509 33.203-33.858 8.901-.204 17.45 3.268 23.989 9.682 6.699 6.572 10.541 15.683 10.541 24.994v9.651zm339.913 90.295.47-6.08h54.273l.47 6.08c1.561 20.209 2.596 40.471 3.149 60.752h-61.516c.553-20.306 1.596-40.579 3.154-60.752zm2.909-37.64c.541-7.001 6.465-12.484 13.486-12.484h22.424c7.021 0 12.945 5.483 13.486 12.485l1.279 16.559h-51.955zm12.699-27.484v-10.141c0-6.616 5.383-11.999 11.999-11.999s11.999 5.383 11.999 11.999v10.141h-.787-22.424zm-19.215 162.782c-.02-7.303.023-14.605.133-21.906h62.149c.109 7.301.177 14.604.156 21.906zm45.36 204.911c-.292 2.139-2.141 3.751-4.299 3.751h-19.695c-2.158 0-4.007-1.612-4.299-3.751l-4.68-34.27h37.653zm-18.43 18.751h8.568l-4.284 9.842z"/><path d="m419.984 497.014h-179.963c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h179.962c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.499-7.5z"/><path d="m208.058 497.014h-99.13c-1.891 0-3.43-1.538-3.43-3.43v-263.12c0-4.143-3.358-7.5-7.5-7.5s-7.5 3.357-7.5 7.5v263.12c0 10.162 8.268 18.43 18.43 18.43h99.13c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5z"/></g>
-                                            </svg>
 
 
-                                            <p class="font-medium text-md text-center mt-1 select-none">No</p>
-                                        </div>
+                            </div>
+                            <div class="w-1/2 flex flex-col items-center pr-2 mt-4">
+                                <p class="w-full block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
+                                    Is this your primary residence?
+                                </p>
+
+                                <div class="w-full justify-between flex mb-2 md:mb-4 ">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="primaryResid(1)" :class="primaryDifferent==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                        <svg class="fill-current h-1/2 w-1/2 mt-2" viewBox="0 0 513 513" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0)">
+                                            <path d="M502.001 492.002H458.001V413.002C458.001 407.479 453.523 403.002 448.001 403.002C442.479 403.002 438.001 407.479 438.001 413.002V492.002H318.001V302.002C318.001 296.479 313.523 292.002 308.001 292.002H204.001C198.479 292.002 194.001 296.479 194.001 302.002V492.002H74.0011V266.001H77.8491C80.5011 
+                                            266.001 83.0441 264.947 84.9201 263.072L256.001 91.991L427.082 263.072C428.958 264.947 431.501 266.001 434.153 266.001H438.001V341.001C438.001 346.524 442.479 351.001 448.001 351.001C453.523 351.001 458.001 346.524 458.001 341.001V266.001H502.001C506.046 266.001 509.692 263.564 511.24 259.828C512.788 256.092 
+                                            511.931 251.79 509.072 248.93L263.072 2.92997C259.166 -0.975029 252.836 -0.975029 248.929 2.92997L154.929 96.93C151.024 100.835 151.024 107.167 154.929 111.072C158.835 114.978 165.167 114.978 169.072 111.072L256.001 24.143L477.858 246.001H438.295L263.072 70.778C259.166 66.873 252.836 66.873 248.929 70.778L73.7061 
+                                            246.001H34.1431L113.072 167.073C116.977 163.168 116.977 156.836 113.072 152.93C109.167 149.026 102.835 149.025 98.9291 152.93L2.92905 248.93C0.0700519 251.79 -0.786948 256.091 0.761052 259.828C2.30905 263.565 5.95605 266.001 10.0011 266.001H54.0011V492.001H10.0011C4.47905 492.001 0.00105194 496.478 0.00105194 502.001C0.00105194 507.524 4.47905 512.001 10.0011 512.001H64.0011H204.001H308.001H448.001H502.001C507.523 512.001 512.001 507.524 512.001 502.001C512.001 496.478 507.523 492.002 502.001 492.002ZM298.001 492.002H214.001V312.002H298.001V492.002Z"/>
+                                            <path d="M406.001 292.002H350.001C344.479 292.002 340.001 296.479 340.001 302.002V402.002C340.001 407.525 344.479 412.002 350.001 412.002H406.001C411.523 412.002 416.001 407.525 416.001 402.002V302.002C416.001 296.479 411.523 292.002 406.001 292.002ZM396.001 392.002H360.001V312.002H396.001V392.002Z"/>
+                                            <path d="M162.001 292.002H106.001C100.479 292.002 96.001 296.479 96.001 302.002V402.002C96.001 407.525 100.479 412.002 106.001 412.002H162.001C167.523 412.002 172.001 407.525 172.001 402.002V302.002C172.001 296.479 167.523 292.002 162.001 292.002ZM152.001 392.002H116.001V312.002H152.001V392.002Z"/>
+                                            <path d="M256.001 164.322C230.637 164.322 210.001 184.958 210.001 210.322C210.001 235.686 230.637 256.322 256.001 256.322C281.365 256.322 302.001 235.686 302.001 210.322C302.001 184.958 281.365 164.322 256.001 164.322ZM256.001 236.322C241.664 236.322 230.001 224.658 230.001 210.322C230.001 195.986 241.664 184.322 256.001 184.322C270.338 184.322 282.001 195.986 282.001 210.322C282.001 224.658 270.338 236.322 256.001 236.322Z"/>
+                                            <path d="M244.07 394.932C242.211 393.072 239.63 392.002 237.001 392.002C234.371 392.002 231.791 393.072 229.931 394.932C228.071 396.792 227.001 399.372 227.001 402.002C227.001 404.632 228.07 407.212 229.931 409.072C231.792 410.932 234.371 412.002 237.001 412.002C239.631 412.002 242.211 410.932 244.07 409.072C245.93 407.212 247.001 404.632 247.001 402.002C247.001 399.372 245.931 396.792 244.07 394.932Z"/>
+                                            <path d="M140.07 125.932C138.211 124.072 135.631 123.002 133.001 123.002C130.371 123.002 127.791 124.072 125.931 125.932C124.071 127.792 123.001 130.372 123.001 133.002C123.001 135.632 124.07 138.212 125.931 140.072C127.792 141.932 130.371 143.002 133.001 143.002C135.631 143.002 138.211 141.932 140.07 140.072C141.93 138.212 143.001 135.632 143.001 133.002C143.001 130.372 141.931 127.792 140.07 125.932Z"/>
+                                            <path d="M455.07 367.261C453.211 365.402 450.63 364.331 448.001 364.331C445.371 364.331 442.791 365.401 440.931 367.261C439.071 369.131 438.001 371.701 438.001 374.331C438.001 376.961 439.07 379.541 440.931 381.411C442.791 383.271 445.371 384.331 448.001 384.331C450.631 384.331 453.211 383.271 455.07 381.411C456.93 379.541 458.001 376.971 458.001 374.331C458.001 371.701 456.931 369.121 455.07 367.261Z"/>
+                                            </g>
+                                            <defs>
+                                            <clipPath id="clip0">
+                                            <rect width="512.002" height="512.002" fill="white"/>
+                                            </clipPath>
+                                            </defs>
+                                        </svg>
+                                        
+                                        <p class="font-medium text-sm md:text-md text-center mt-1 select-none">Yes</p>
+                                    </div>
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="primaryResid(0)" :class="primaryDifferent==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                        
+                                        <svg class="fill-current h-1/2 w-1/2 mt-2" enable-background="new 0 0 512.014 512.014" viewBox="0 0 512.014 512.014" xmlns="http://www.w3.org/2000/svg"><g>
+                                            <path d="m162.554 86.993h212.198c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-212.198c-8.834 0-16.021 7.187-16.021 16.021v52.517c0 8.834 7.187 16.021 16.021 16.021h212.198c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-212.198c-.563 0-1.021-.458-1.021-1.021v-52.517c.001-.563.459-1.021 1.021-1.021z"/><path d="m157.495 200.686h18.205c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5h-18.205c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m341.865 185.686h-124.24c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h124.241c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.501-7.5z"/><path d="m157.495 251.428h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 303.694h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 355.96h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 408.227h220.736c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-220.736c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m500.579 148.473-2.908-37.638c-.693-8.982-5.593-16.774-12.654-21.504v-14.967c0-12.405-8.412-22.876-19.83-26.025-.285-26.702-22.084-48.339-48.852-48.339h-359.703c-.093 0-.183.011-.274.014-.226.001-.45-.009-.676-.005-26.421.506-47.916 22.422-47.916 48.856v16.025c0 5.207 4.236 9.443 9.443 9.443h73.289v124.168c0 4.143 3.358 7.5 7.5 7.5s7.5-3.357 7.5-7.5v-148.818c0-12.843-5.112-25.395-14.049-34.683h324.886c18.559 0 33.673 15.008 33.857 33.526-11.083 3.363-19.173 13.671-19.173 25.838v14.966c-7.062 4.73-11.961 12.522-12.654 21.503l-2.634 34.083-21.302 14.759c-9.425 6.53-15.052 17.274-15.052 28.74v100.166l-7.8 14.999c-1.911 3.675-.48 8.203 3.194 10.114 1.105.575 2.288.848 3.454.848 2.708 0 5.324-1.473 6.66-4.042l8.646-16.626c.556-1.068.846-2.255.846-3.46v-101.997c0-6.547 3.213-12.682 8.595-16.41l11.389-7.891c-3.548 55.099-3.42 110.803.414 165.823.287 4.132 3.854 7.249 8.003 6.96 4.132-.287 7.248-3.87 6.96-8.003-1.541-22.12-2.475-44.352-2.808-66.609h62.17c-.711 47.042-4.144 94.049-10.252 140.642h-41.672c-1.838-14.024-3.462-28.204-4.81-42.265-.396-4.123-4.063-7.144-8.182-6.75-4.123.396-7.146 4.059-6.75 8.182 1.575 16.428 3.504 33.03 5.732 49.348l5.843 42.784c.649 4.76 3.029 8.934 6.445 11.922.103.493.257.982.466 1.462l15.22 34.964c1.191 2.737 3.893 4.507 6.877 4.507s5.686-1.77 6.877-4.507l15.22-34.964c.209-.479.363-.969.466-1.462 3.417-2.988 5.796-7.162 6.445-11.922l5.843-42.784c11.878-86.975 14.472-175.451 7.711-262.971zm-410.081-89.139h-67.732v-10.469c0-18.319 14.895-33.509 33.203-33.858 8.901-.204 17.45 3.268 23.989 9.682 6.699 6.572 10.541 15.683 10.541 24.994v9.651zm339.913 90.295.47-6.08h54.273l.47 6.08c1.561 20.209 2.596 40.471 3.149 60.752h-61.516c.553-20.306 1.596-40.579 3.154-60.752zm2.909-37.64c.541-7.001 6.465-12.484 13.486-12.484h22.424c7.021 0 12.945 5.483 13.486 12.485l1.279 16.559h-51.955zm12.699-27.484v-10.141c0-6.616 5.383-11.999 11.999-11.999s11.999 5.383 11.999 11.999v10.141h-.787-22.424zm-19.215 162.782c-.02-7.303.023-14.605.133-21.906h62.149c.109 7.301.177 14.604.156 21.906zm45.36 204.911c-.292 2.139-2.141 3.751-4.299 3.751h-19.695c-2.158 0-4.007-1.612-4.299-3.751l-4.68-34.27h37.653zm-18.43 18.751h8.568l-4.284 9.842z"/><path d="m419.984 497.014h-179.963c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h179.962c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.499-7.5z"/><path d="m208.058 497.014h-99.13c-1.891 0-3.43-1.538-3.43-3.43v-263.12c0-4.143-3.358-7.5-7.5-7.5s-7.5 3.357-7.5 7.5v263.12c0 10.162 8.268 18.43 18.43 18.43h99.13c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5z"/></g>
+                                        </svg>
+
+
+                                        <p class="font-medium text-sm md:text-md text-center mt-1 select-none">No</p>
                                     </div>
                                 </div>
 
-                                <div class="flex flex-wrap -mx-3 mb-2 overflow-y-hidden dropdown pt-6" :class="!primaryDifferent ? 'h-64' : 'h-0'">
+                            </div>
+                            
+                            <div class="flex flex-wrap -mx-3 mb-2 overflow-y-hidden dropdown pt-6" :class="!primaryDifferent ? 'h-64' : 'h-0'">
 
                                     <div class="w-full px-3">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                             Primary Address
                                         </label>
-                                        <input v-model="inputPrimaryAddress" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="42 Wallaby Way">
+                                        <input v-model="inputPrimaryAddress" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="42 Wallaby Way">
                                     </div>
                                     <div class="w-full flex items-center">
                                         <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                            <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                            <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                                 City
                                             </label>
-                                            <input v-model="inputPrimaryCity" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Los Angeles">
+                                            <input v-model="inputPrimaryCity" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Los Angeles">
                                         </div>
 
                                         <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                            <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                            <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                                 State
                                             </label>
                                             <div class="relative">
-                                                <select v-model="inputPrimaryState" class="cursor-pointer border-gray-400 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
+                                                <select v-model="inputPrimaryState" class="cursor-pointer border-gray-400 block text-sm md:text-md appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
                                                     <option selected>California</option>
                                                     <option>Texas</option>
                                                     <option>New York</option>
@@ -497,10 +501,10 @@
                                             </div>
                                         </div>
                                         <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                            <label class="ml-1 block tracking-wide text-gray-700 text-md font-medium mb-2" >
+                                            <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
                                                 Zip Code
                                             </label>
-                                            <input v-model="inputPrimaryZipCode" class="border-gray-400 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
+                                            <input v-model="inputPrimaryZipCode" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
                                         </div>
                                     </div>
                                     
@@ -508,48 +512,46 @@
                                     
                                     
                                 </div>
-                                
-
-                                
-                                
-                            </div>
                             
-                            <div class="flex items-center justify-between w-full">
+                        </form>
+                        <div class="hidden flex items-center justify-between w-full">
                             <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-gray-300 text-gray-900 mt-6 h-12 px-10 py-3 rounded-md flex items-center justify-center hover:bg-gray-400" @click="toPrevious">
+                                <div class="bg-gray-300 text-gray-900 mt-6 h-12 px-2 py-3 rounded-md flex items-center justify-center hover:bg-gray-400" @click="toPrevious">
                                     <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                     
                                     <p v-if="!submitted" class="">Back</p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-teal-500 text-white mt-6 h-12 px-12 py-3 rounded-md flex items-center justify-center hover:bg-teal-600" @click="toNextPage">
+                                <div class="ml-auto bg-teal-500 text-white mt-2 md:mt-6 h-12 px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" v-if="(inputAgeOver65!=-1) && (inputVetStatus!=-1) && (primaryDifferent!=-1)" @click="toNextPage">
+                                    <p v-if="!submitted">Continue</p>
+                                    <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
+                                    <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
+                                </div>
+                                <div class="bg-teal-500 opacity-50 text-white mt-6 h-12 px-12 py-3 rounded-md flex items-center justify-center hover:bg-teal-600" v-if="!((inputAgeOver65!=-1) && (inputVetStatus!=-1) && (primaryDifferent!=-1))">
                                     <p v-if="!submitted">Continue</p>
                                     <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                     <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
                                 </div>
                             </div>
                         </div>
-                            
-                            
-                            </form>
-                        
                     </div>
                         
                 </div>
 
             </div>
+            
 
-            <div v-if="section==3" key="4"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-8" style="max-width: 950px;">
+            <div v-if="$store.state.appealSection == 3" key="4"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center md:mt-2" style="max-width: 950px;">
                 <div class="flex items-stretch rounded-lg mb-12 overflow-y-hidden dropdslow overflow-x-hidden" style="" :style="{'max-height' : submitted ? '100px' : '1250px'}">
-                    <div class="flex flex-col px-10 sm:px-16 pt-3 pb-20 sm:py-6">
-                        <div class="flex items-start flex-col mb-2 pt-6 sm:pt-0 md:mb-4">
-                            <p class="text-4xl font-bold text-left w-full leading-tight text-teal-500">Read over our terms</p>
-                            <p class="text-xl text-left w-full text-gray-800 mt-6 mb-2" >You must scroll to the bottom before you're able to confirm </p>
+                    <div class="flex flex-col px-2 md:px-16 pt-3 pb-20">
+                        <div class="flex items-start flex-col mb-2 sm:pt-0 md:mb-4">
+                            <p class="text-xl md:text-4xl font-bold text-center md:text-left w-full leading-tight text-teal-500">Read over our terms</p>
+                            <p class="text-md md:text-xl text-left w-full text-gray-800 mt-2 mb-2" >You must scroll to the bottom before you're able to confirm </p>
 
                         </div>
                         
-                        <div id="style-1" ref="scrolley" class="flex flex-col items-start overflow-y-auto" @scroll="createScrollChecker" style="max-height: 450px;">
+                        <div id="style-1" ref="scrolley" class="flex flex-col items-start overflow-y-auto" @scroll="createScrollChecker" style="max-height: 350px;">
                             <p class="w-full px-2 text-sm">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum sem id est faucibus, eu sagittis mi maximus. Sed lacus nisl, faucibus pharetra hendrerit eu, commodo nec nibh. Proin mauris lectus, vulputate vitae arcu quis, consectetur suscipit felis. Morbi fringilla ante velit, vel tincidunt tellus vehicula in. Quisque ullamcorper metus eu pulvinar suscipit. Duis nec tortor eu diam tincidunt sollicitudin. Aliquam mollis at nunc nec ullamcorper. Etiam non congue enim, in maximus metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in ultricies lorem. Nunc consequat luctus feugiat. Etiam pretium, ante et bibendum iaculis, massa quam ornare massa, maximus maximus sem ante nec erat. Integer a mauris aliquam, rutrum magna nec, mattis massa. Integer sodales dolor id facilisis blandit. Integer consequat vel odio quis eleifend.
 
@@ -577,7 +579,7 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
                             </p>
                         </div>
 
-                        <form class="w-full mt-6">
+                        <form class="w-full flex-col md:flex-row mt-6">
                             
                             <div class="flex items-center w-full">
                                 <div class="rounded-md w-8 h-8 border cursor-pointer flex justify-center items-center" v-if="hasRead" @click="inputAgreedToTerms = !inputAgreedToTerms" :class="hasRead ? inputAgreedToTerms ? 'bg-teal-500' : 'border-gray-500' : 'border-gray-400'">
@@ -605,16 +607,16 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
                             
                         </form>
 
-                        <div class="flex items-center justify-between w-full">
+                        <div class="hidden flex items-center justify-between w-full">
                             <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-gray-300 text-gray-900 mt-6 h-12 px-10 py-3 rounded-md flex items-center justify-center hover:bg-gray-400" @click="toPrevious">
+                                <div class="bg-gray-300 text-gray-900 mt-6 h-12 px-2 py-3 rounded-md flex items-center justify-center hover:bg-gray-400" @click="toPrevious">
                                     <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                     
                                     <p v-if="!submitted" class="">Back</p>
                                 </div>
                             </div>
                             <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-teal-500 text-white mt-6 h-12 px-12 py-3 rounded-md flex items-center justify-center hover:bg-teal-600" v-if="inputAgreedToTerms && inputAgreedToPrivacy" @click="toNextPage">
+                                <div class="ml-auto bg-teal-500 text-white mt-2 md:mt-6 h-12 px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" v-if="inputAgreedToTerms && inputAgreedToPrivacy" @click="toNextPage">
                                     <p v-if="!submitted">Continue</p>
                                     <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
                                     <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
@@ -635,9 +637,9 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
 
             </div>
 
-            <div v-else-if="section==4 && !savingsCalculated" key="5" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+            <div v-else-if="$store.state.appealSection == 4 && !$store.state.savingsCalc" key="5" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col items-center">    
-                    <p class="text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Calculating your savings now..</p>
+                    <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Calculating your savings now..</p>
                     <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
                         <p class="text-lg w-full text-gray-800 text-left mb-12">This will only take a moment</p>
 
@@ -647,13 +649,13 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
             
             </div>
 
-            <div v-else-if="section==4 && savingsCalculated" key="5-1"
+            <div v-else-if="$store.state.appealSection == 4 && $store.state.savingsCalc" key="5-1"
                     data-aos="fade-up"
                     data-aos-delay="0"
                     data-aos-duration="900"
                     data-aos-once="true" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col w-full items-center">  
-                    <p class="text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >We estimate your savings will be:</p>
+                    <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >We estimate your savings will be:</p>
 
 
                     <div class="flex items-center">
@@ -675,13 +677,17 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
             
             </div>
 
-            <div v-else-if="section==5" key="6" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+            <div v-else-if="$store.state.appealSection == 5" key="6" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col items-center">    
-                    <p class="text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >The form ends here. I haven't finished past this point</p>
+                    <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >The form ends here. I haven't finished past this point</p>
                     <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
 
                     </div>
+                    <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Write your first and last name to </p>
+
                 </div>
+
+                
 
             
             </div>
@@ -691,7 +697,7 @@ Curabitur tincidunt nunc eu gravida laoreet. Etiam at lacus in leo hendrerit gra
         
     </div>
     
-    <div class="w-full flex flex-col-reverse sm:flex-row mt-12 mb-10">
+    <div class="w-full flex flex-col-reverse sm:flex-row mt-12 mb-2 md:mb-10">
       <div class="flex-1 flex flex-col justify-center items-center sm:items-start items-start mt-4 ml-4 sm:mt-0">
         <div class="flex items-end mt-6 sm:mt-0">
 
@@ -767,7 +773,7 @@ export default {
         primaryDifferent: -1,
         submitted: false,
         progStatus: 0,
-        section: -1,
+        section: 0,
         sectionPrev: -1,
         direction: true,
         sectionArr: ['your property', 'about you', 'county info', 'form submission', 'savings estimate', 'forms overview', 'file appeal']
@@ -797,22 +803,19 @@ export default {
         this.section++
     },
     toNextPage(){
-        window.console.log("here i am", this.section)
-
+        this.$store.commit('increment')
         this.sectionPrev = this.section
         this.direction = true
         this.section++
         this.progStatus += (1/(this.sectionArr.length-1))*100
-        if(this.section == 3) {
-            this.createScrollChecker()
-        } else if(this.section == 4) {
+        if (this.$store.state.appealSection == 4) {
+            window.console('here i ammm')
             setTimeout(() => this.savingsCalculated = true, 4000)
         }
     },
     createScrollChecker() {
-        
         if(this.$refs["scrolley"] != undefined) {
-            if(this.$refs["scrolley"].scrollTop == (this.$refs["scrolley"].scrollHeight - this.$refs["scrolley"].clientHeight)) {
+            if(this.$refs["scrolley"].scrollTop >= (this.$refs["scrolley"].scrollHeight - this.$refs["scrolley"].clientHeight)-20) {
                 this.hasRead = true
             } 
         } 
@@ -826,15 +829,44 @@ export default {
     vetStat(val) {
         if(this.inputVetStatus==val) this.inputVetStatus = -1
         else this.inputVetStatus = val
+        this.checkThree()
     },
     ageStat(val) {
         if(this.inputAgeOver65==val) this.inputAgeOver65 = -1
         else this.inputAgeOver65 = val
+        this.checkThree()
+
     },
     primaryResid(val) {
         if(this.primaryDifferent==val) this.primaryDifferent = -1
         this.primaryDifferent = val
+        this.checkThree()
+
     },
+    checkThree() {
+        if((this.inputVetStatus!=-1) && (this.inputAgeOver65!=-1) && (this.primaryDifferent!=-1)) {
+           this.$store.commit('canSubmitThreeTrue')
+        } else {
+           this.$store.commit('canSubmitThreeFalse')
+            
+        }
+    },
+  },
+  watch: {
+      inputAgreedToPrivacy() {
+          if(this.inputAgreedToPrivacy && this.inputAgreedToTerms) {
+            this.$store.commit('canSubmitFourTrue')
+          } else {
+             this.$store.commit('canSubmitFourFalse') 
+          }
+      },
+      inputAgreedToTerms() {
+          if(this.inputAgreedToPrivacy && this.inputAgreedToTerms) {
+            this.$store.commit('canSubmitFourTrue')
+          } else {
+             this.$store.commit('canSubmitFourFalse') 
+          }
+      }
   }
 }
 </script>

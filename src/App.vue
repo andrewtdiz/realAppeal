@@ -2,13 +2,13 @@
   <div id="app" class="min-h-screen flex flex-col" :class="navBar==0 ? 'max-h-screen' : ''">
     <HelloWorld :navBar="navBar" v-on:appealClick="appealClick" v-on:homeBoi="homeBoi"/>
     <div class="fixed top-0 h-screen flex flex-col justify-end items-end px-10" :class="chatStyle" style="z-index: 100; width:99%; pointer-events:none;">
-      <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-18 sm:h-18 bg-orange-500 rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
+      <div v-if="showChat" @click="flipChat" class="w-16 h-16 sm:w-18 sm:h-18 calcsavingsbtn rounded-full flex flex-col justify-center items-center shadow-md hover:shadow-lg cursor-pointer hover:bg-orange-700" style="pointer-events: auto;">
         <font-awesome-icon class="text-white my-2 w-full h-full hidden sm:block" :icon="['fas', 'comment-dots']" size="2x" />
         <font-awesome-icon class="text-white my-2 w-full h-full block sm:hidden" :icon="['fas', 'comment-dots']" size="2x" />
 
       </div>
       <div v-show="!showChat" class="bg-white flex flex-col items-stretch shadow overflow-hidden dropdown rounded-t-xl border-l border-r border-t border-gray-300" :class="navBar==1 ? ['pointer-events-none', 'md:pointer-events-auto']: !showChat ? 'pointer-events-auto' : ''" style="width: 19rem">
-        <div class="bg-orange-500 flex flex-col items-center">
+        <div class="calcsavings flex flex-col items-center">
           <font-awesome-icon class="text-white mt-2 w-full ml-auto mr-4 hover:text-orange-700 cursor-pointer" @click="flipChat" :icon="['fas', 'times']" size="lg" />
           <div class="flex flex-col items-center px-4 pb-3">
             <p class="text-white text-xl font-medium">Let's Chat!</p>
@@ -77,6 +77,43 @@
         </div>
       </div>
     </div>
+
+    <div v-if="navBar==1" class="fixed top-0 h-screen w-screen flex flex-col items-center pb-12 md:pb-24 justify-end " style="z-index: 1000; width:99%; pointer-events:none;">
+      <div class="flex items-center w-full md:w-3/4" :class="($store.state.appealSection >= 1) ? 'justify-between' : 'justify-end'">
+        <div v-if="$store.state.appealSection >= 1" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
+            <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" :icon="['fas', 'chevron-down']" />
+            
+            <p class="text-xs md:text-md">Back</p>
+        </div>
+        
+        <div v-if="$store.state.appealSection > -1 && ($store.state.appealSection !=2) && ($store.state.appealSection !=3)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="$store.state.appealSection > -1 && ($store.state.appealSection !=2) && ($store.state.appealSection !=3)" class="shadow-md md:hidden flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center pointer-events-auto" @click="$store.commit('increment')">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="($store.state.appealSection == 2) && ($store.state.canSubmitThree)" class="shadow-md bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="($store.state.appealSection == 2) && (!$store.state.canSubmitThree)" class="shadow-md bg-teal-500 opacity-50 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center pointer-events-auto">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="($store.state.appealSection == 3) && ($store.state.canSubmitFour)" class="shadow-md bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('incrementAndSavings')">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="($store.state.appealSection == 3) && (!$store.state.canSubmitFour)" class="shadow-md bg-teal-500 opacity-50 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center pointer-events-auto">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        
+      </div>
+    </div>
+
     <AppealVue v-if="navBar==1" />
     <div v-if="!(navBar==1)" class="flex flex-col w-full -mt-16">
       <div  class="flex flex-col ">
@@ -100,8 +137,7 @@
             class="w-full h-full absolute opacity-50 bg-black"
           ></div>
         <div class="relative -mb-8 w-screen flex justify-center items-stretch overflow-x-hidden overflow-y-hidden" :class="flip ? 'mb-auto' : 'mt-auto'">
-          <div class="w-1/8 h-full hidden sm:block"></div>
-          <div class="flex justify-start h-full w-full justify-center sm:justify-start" style="max-width: 920px;">
+          <div class="flex justify-start h-full w-full justify-center sm:justify-start mx-4 md:mx-0" style="max-width: 920px;">
             <div class="flex flex-col items-start text-white rounded-md pt-12 pb-4 pr-auto">
               <p data-aos="fade-down"
                   data-aos-delay="200"
@@ -132,14 +168,14 @@
 
     </div>
     
-    <div class="bg-white w-full sm:h-64 my-12 sm:my-24 " >
+    <div class="bg-white w-full flex justify-center sm:h-64 my-12 sm:my-24 " >
       <div data-aos="fade-up"
                   data-aos-delay="200"
                   data-aos-duration="800"
                   data-aos-easing="ease-in-out"
-                  data-aos-once="true" class="flex justify-center lg:justify-center items-center pt-1 w-full">
-        <div class="flex flex-col sm:flex-row w-full items-center">
-          <div class="sm:flex-1 sm:h-full flex items-center my-auto justify-end sm:mr-12 animated">
+                  data-aos-once="true" class="flex container justify-center lg:justify-center items-center pt-1 w-full mx-2 md:mx-2" style="max-width:920px;">
+        <div class="flex flex-col sm:flex-row sm:items-center w-full items-center">
+          <div class="sm:flex-1 sm:h-full flex items-center justify-start animated" >
             <div class="flex flex-col items-center">
               <img style="object-position:50% 50%;width:291px;height:84px;object-fit:cover" alt="realAppeal" itemprop="image" src="./assets/roofs.png">
               <div class="flex items-baseline mb-1">
@@ -154,11 +190,11 @@
                 <p class="font-medium hidden sm:block sm:text-2xl mb-6 text-gray-800">
                   What is realAppeal?
                 </p>
-                <p class="text-md sm:text-lg font-light hidden lg:block animated">realAppeal is an online solution for porperty tax appeals. <br>
-                We help homeowners identify if they're paying too much in <br>
-                real estate taxes. If so, we can quickly appeal their property <br>
-                taxes getting property owners the savings they deserve. We are <br>
-                currently filing appeals for customers nationwide, in accordance <br>
+                <p class="text-md sm:text-lg font-light hidden lg:block animated">realAppeal is an online solution for porperty tax appeals.
+                We help homeowners identify if they're paying too much in
+                real estate taxes. If so, we can quickly appeal their property
+                taxes getting property owners the savings they deserve. We are
+                currently filing appeals for customers nationwide, in accordance
                 with local laws and deadlines.</p>
                 <p class="text-md hidden font-light sm:block mr-8 lg:hidden animated">realAppeal is an online solution for porperty tax appeals.
                 We help homeowners identify if they're paying too much in
@@ -176,28 +212,28 @@
       </div>
     </div>
     
-    <div class="bg-blue-900 w-full h-32 md:h-48 flex items-center" style="z-index: 10;">
-      <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center w-full lg:w-full">
+    <div class="bg-blue-900 w-full h-32 md:h-48 flex justify-center items-center" style="z-index: 10;">
+      <div class="flex flex-col md:flex-row justify-start md:justify-center items-center w-full lg:w-full" style="max-width:920px;">
         <div class="flex flex-col h-full items-start ">
-          <p class="text-white text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium lg:ml-12">See how much you can save on your next property tax bill</p>
-          <p class="text-white text-sm block sm:hidden sm:text-lg lg:text-2xl font-medium text-center lg:ml-12">See how much you can save <br> on your next property tax bill</p>
-          <p class="text-white pt-6 hidden md:block text-sm font-light lg:text-lg lg:ml-12">Use our free property tax savings calculator and find out how <br> much you could lower your real estate taxes</p>
+          <p class="text-white text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium">See how much you can save on your next property tax bill</p>
+          <p class="text-white text-sm block sm:hidden sm:text-lg lg:text-2xl font-medium text-center">See how much you can save <br> on your next property tax bill</p>
+          <p class="text-white pt-6 hidden md:block text-sm font-light lg:text-lg">Use our free property tax savings calculator and find out how <br> much you could lower your real estate taxes</p>
         </div>
         <div class="flex flex-col md:pl-6">
-          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white bg-orange-500 rounded lg:ml-4 my-3 mt-4 md:ml-5 hover:bg-orange-700">Calculate Savings</button>
+          <div class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white cursor-pointer rounded lg:ml-4 my-3 mt-4 md:ml-5 calcsavingsbtn">Calculate Savings</div>
 
         </div>
       </div>
     </div>
 
-    <div class="mt-6 lg:mt-12 bg-white flex flex-col w-full overflow-x-hidden">
+    <div class="mt-6 lg:mt-12 bg-white flex flex-col items-center w-full mx-auto overflow-x-hidden" style="max-width:920px;">
 
       <div class="w-full flex justify-center py-8">
         <p class="text-4xl lg:text-5xl font-medium text-center text-gray-800 ">Steps to appeal</p>
       </div>
-
+    
       <div class="flex w-full flex-col-reverse sm:flex-row sm:items-stretch py-8">
-        <div class="w-1/2 flex flex-col sm:flex-col sm:mr-8 sm:mr-24 items-center sm:mt-auto sm:items-end h-full">
+        <div class="w-1/2 mx-auto md:mx-0 flex flex-col sm:flex-col sm:mr-8 sm:mr-24 items-center sm:mt-auto sm:items-end h-full">
           <div class="flex flex-col items-center">
             <div class="flex flex-col items-start sm:ml-3">
               <div class="flex flex-col items-start">
@@ -224,14 +260,14 @@
             data-aos-duration="600"
             data-aos-easing="ease-in-out"
             data-aos-once="true"
-              class="w-1/2 flex flex-col items-center sm:items-start sm:pl-24 h-full mb-6 sm:mb-0">
+              class="w-1/2 mx-auto md:mx-0 flex flex-col items-center sm:items-start sm:pl-24 h-full mb-6 sm:mb-0">
           <img class="w-48 sm:w-64" alt="realAppeal" itemprop="image" src="./assets/Group2.svg">
 
         </div>
       </div>
 
       <div class="flex w-full flex-col-reverse sm:flex-row-reverse sm:items-stretch py-8">
-        <div class="w-1/2 flex flex-col sm:flex-col sm:mt-auto items-center sm:ml-24 sm:items-start sm:ml-8 h-full">
+        <div class="w-1/2 mx-auto md:mx-0 flex flex-col sm:flex-col sm:mt-auto items-center sm:ml-24 sm:items-start sm:ml-8 h-full">
           <div class="flex flex-col items-center">
             <div class="flex flex-col items-start">
               <div class="flex flex-col items-start">
@@ -258,14 +294,14 @@
             data-aos-duration="600"
             data-aos-easing="ease-in-out"
             data-aos-once="true"
-               class="w-1/2 flex flex-col items-center sm:items-end h-full sm:pr-24 mb-6 sm:mb-0">
+               class="w-1/2 mx-auto md:mx-0 flex flex-col items-center sm:items-end h-full sm:pr-24 mb-6 sm:mb-0">
           <img class="w-48 sm:w-64" style="transform: translate(0px,10px)" alt="realAppeal" itemprop="image" src="./assets/Group3.svg">
 
         </div>
       </div>
 
       <div class="flex w-full flex-col-reverse sm:flex-row sm:items-stretch py-8">
-        <div class="w-1/2 flex flex-col sm:flex-col sm:mt-auto items-center sm:mr-24 sm:pr-8 sm:items-end h-full">
+        <div class="w-1/2 mx-auto md:mx-0 flex flex-col sm:flex-col sm:mt-auto items-center sm:mr-12 sm:pr-2 sm:items-end h-full">
           <div class="flex flex-col items-center">
             
             <div class="flex flex-col items-start sm:mr-3">
@@ -296,7 +332,7 @@
             data-aos-duration="600"
             data-aos-easing="ease-in-out"
             data-aos-once="true"
-               class="w-1/2 flex flex-col items-center sm:items-start sm:pl-24 h-full mb-6 sm:mb-0">
+               class="w-1/2 mx-auto md:mx-0 flex flex-col items-center sm:items-start sm:pl-24 h-full mb-6 sm:mb-0">
           <img class="w-48 sm:w-64" alt="realAppeal" itemprop="image" src="./assets/Group4.svg">
           
         </div>
@@ -304,7 +340,7 @@
 
 
       <div class="flex w-full flex-col-reverse sm:flex-row-reverse sm:items-stretch py-8">
-        <div class="w-1/2 flex flex-col sm:flex-col sm:mt-auto sm:ml-24 items-center sm:items-start h-full">
+        <div class="w-1/2 mx-auto md:mx-0 flex flex-col sm:flex-col sm:mt-auto sm:ml-24 items-center sm:items-start h-full">
           <div class="flex flex-col items-center">
             <div class="flex flex-col items-start">
               <div class="flex flex-col items-start">
@@ -333,7 +369,7 @@
             data-aos-duration="600"
             data-aos-easing="ease-in-out"
             data-aos-once="true"
-               class="w-1/2 flex flex-col items-center sm:items-end sm:pr-24 h-full mb-6 sm:mb-0">
+               class="w-1/2 mx-auto md:mx-0 flex flex-col items-center sm:items-end sm:pr-24 h-full mb-6 sm:mb-0">
           <img class="w-48 sm:w-64" alt="realAppeal" itemprop="image" src="./assets/Group5.svg">
 
         </div>
@@ -444,15 +480,15 @@
         data-aos-duration="400"
         data-aos-easing="ease-in-out"
         data-aos-once="true"
-        class="w-full h-32 md:h-48 my-8 md:my-16 overflow-x-hidden" style="z-index: 10;">
-      <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center pt-6 lg:pt-8 w-full lg:w-full">
+        class="w-full h-32 md:h-48 my-8 md:my-16 flex justify-center overflow-x-hidden" style="z-index: 10;">
+      <div class="flex flex-col md:flex-row justify-start sm:ml-4 md:justify-center items-center pt-6 lg:pt-8 w-full lg:w-full" style="max-width:920px;">
         <div class="flex flex-col h-full items-start ">
           <p class="text-blue-800 text-sm hidden sm:block sm:text-lg lg:text-2xl font-medium lg:ml-12">See how much you can save on your next property tax bill</p>
           <p class="text-blue-800 text-sm block sm:hidden sm:text-lg lg:text-2xl font-medium text-center lg:ml-12">See how much you can save <br> on your next property tax bill</p>
           <p class="text-blue-800 pt-6 hidden md:block text-sm font-light lg:text-lg lg:ml-12">Use our free property tax savings calculator and find out how <br> much you could lower your real estate taxes</p>
         </div>
         <div class="flex flex-col md:pl-6">
-          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white bg-orange-500 rounded lg:ml-4 my-3 mt-4 md:ml-5 hover:bg-orange-600">Calculate Savings</button>
+          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white rounded lg:ml-4 my-3 mt-4 md:ml-5 calcsavingsbtn">Calculate Savings</button>
 
         </div>
       </div>
@@ -568,6 +604,22 @@ export default {
 }
 .delay-2 {
 animation-delay: .5s;
+}
+
+.calcsavings {
+  background-color: #ee8572;
+}
+
+.calcsavingsbtn {
+  background-color: #ee8572;
+}
+.calcsavingsbtn:hover {
+  background-color: #d27564;
+}
+
+
+.calcsavingsbtn2:hover {
+  color: #d27564;
 }
 </style>
 
