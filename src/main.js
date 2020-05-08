@@ -12,16 +12,39 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    appealSection: 0,
+    appealSection: -2,
     canSubmitThree: false,
     canSubmitFour: false,
     savingsCalc: false,
+    questions: 0,
+
+    inputAddress: '',
+    inputCity: '',
+    inputState: '',
+    inputZipCode: '',
+
+    countyAnswers: [-1,-1,-1],
+    firstDone: false,
   },
   mutations: {
+    changeAddress(state, { val }){
+      state.inputAddress = val
+    },
+    setCountyAnswers(state, { ind, val }) {
+      state.countyAnswers[ind] = val
+      window.console.log(state.countyAnswers)
+    },
     increment (state) {
       state.appealSection++
     },
+    incrementQuestions(state) {
+      state.questions++
+    },
+    decrementQuestions(state) {
+      state.questions--
+    },
     incrementAndSavings (state) {
+      window.console.log('increment and save' ,state.savingsCalc, state.appealSection)
       state.appealSection++
       setTimeout(() => state.savingsCalc = true, 4000)
     },

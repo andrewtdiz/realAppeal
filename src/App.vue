@@ -78,41 +78,32 @@
       </div>
     </div>
 
-    <div v-if="navBar==1" class="fixed top-0 h-screen w-screen flex flex-col items-center pb-12 md:pb-24 justify-end " style="z-index: 1000; width:99%; pointer-events:none;">
-      <div class="flex items-center w-full md:w-3/4" :class="($store.state.appealSection >= 1) ? 'justify-between' : 'justify-end'">
-        <div v-if="$store.state.appealSection >= 1" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
+    <transition
+      enter-active-class="animated fadeInUp"
+      
+    > 
+      <div v-if="navBar==1 && $store.state.appealSection >= -1 && $store.state.appealSection<3" class="fixed top-0 h-screen w-screen flex flex-col items-center pb-32 md:pb-24 justify-end " style="z-index: 1000; width:99%; pointer-events:none;">
+      <div class="flex items-center w-full md:w-3/4" style="max-width:900px" :class="($store.state.appealSection >= 1) ? 'justify-between' : 'justify-end'">
+        <div v-if="$store.state.appealSection > 0" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
             <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" :icon="['fas', 'chevron-down']" />
             
             <p class="text-xs md:text-md">Back</p>
         </div>
         
-        <div v-if="$store.state.appealSection > -1 && ($store.state.appealSection !=2) && ($store.state.appealSection !=3)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
+        <div v-if="$store.state.appealSection ==-1 && $store.state.firstDone" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
-        <div v-if="$store.state.appealSection > -1 && ($store.state.appealSection !=2) && ($store.state.appealSection !=3)" class="shadow-md md:hidden flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center pointer-events-auto" @click="$store.commit('increment')">
+        <div v-if="($store.state.appealSection ==-1 || $store.state.appealSection ==0) && !$store.state.firstDone" class="shadow-md hidden md:flex bg-teal-500 mx-2 opacity-50 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center pointer-events-auto" >
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
-        <div v-if="($store.state.appealSection == 2) && ($store.state.canSubmitThree)" class="shadow-md bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
-            <p class="text-xs md:text-md">Continue</p>
-            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
-        </div>
-        <div v-if="($store.state.appealSection == 2) && (!$store.state.canSubmitThree)" class="shadow-md bg-teal-500 opacity-50 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center pointer-events-auto">
-            <p class="text-xs md:text-md">Continue</p>
-            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
-        </div>
-        <div v-if="($store.state.appealSection == 3) && ($store.state.canSubmitFour)" class="shadow-md bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('incrementAndSavings')">
-            <p class="text-xs md:text-md">Continue</p>
-            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
-        </div>
-        <div v-if="($store.state.appealSection == 3) && (!$store.state.canSubmitFour)" class="shadow-md bg-teal-500 opacity-50 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md flex cursor-pointer items-center justify-center pointer-events-auto">
-            <p class="text-xs md:text-md">Continue</p>
-            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
-        </div>
+
         
       </div>
     </div>
+    </transition>
+    
 
     <AppealVue v-if="navBar==1" />
     <div v-if="!(navBar==1)" class="flex flex-col w-full -mt-16">
