@@ -73,12 +73,12 @@
     > 
       <div v-if="navBar==1 && $store.state.appealSection >= -1 && $store.state.appealSection<3" class="fixed top-0 h-screen w-screen flex flex-col items-center pb-32 md:pb-24 justify-end " style="z-index: 1000; width:99%; pointer-events:none;">
       <div class="flex items-center w-full md:w-3/4" style="max-width:900px" :class="($store.state.appealSection >= 1) ? 'justify-between' : 'justify-end'">
-        <div v-if="$store.state.appealSection > 0 || ($store.state.appealSection==1 && questionsVal==-1)" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
+        <div v-if="$store.state.appealSection > 0 || ($store.state.appealSection==1 && questionsNum<=0)" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
             <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" :icon="['fas', 'chevron-down']" />
             
             <p class="text-xs md:text-md">Back</p>
         </div>
-        <div v-if="$store.state.appealSection == 1 && (questionsVal!=-1)" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrementQuestions')">
+        <div v-if="$store.state.appealSection == 1 && (questionsNum>0)" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrementQuestions')">
             <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" :icon="['fas', 'chevron-down']" />
             
             <p class="text-xs md:text-md">Back</p>
@@ -96,7 +96,7 @@
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
-        <div v-if="$store.state.appealSection == 2 && (canSubmitFormThree)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('incrementAndSavings')">
+        <div v-if="$store.state.appealSection == 2 && (canSubmitFormThree)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
@@ -556,6 +556,7 @@ export default {
   }, 
   data: function() {
     return {
+      clientID: "",
       questionsNum: 0,
       isResidence: -1,
       isVet: -1,
@@ -595,14 +596,17 @@ export default {
     },
     changeResidence(val) {
       this.isResidence = val
+      this.$store.commit('setCountyAnswers', { ind: 0, val: this.isResidence})
       this.questionsNum += 1
     },
     changeVet(val) {
       this.isVet = val
+      this.$store.commit('setCountyAnswers', { ind: 1, val: this.isVet})
       this.questionsNum += 1
     },
     changeSixtyFive(val) {
       this.isSixtyFive = val
+      this.$store.commit('setCountyAnswers', { ind: 2, val: this.isSixtyFive})
       this.$store.commit('increment')
     },
     flipChat() {

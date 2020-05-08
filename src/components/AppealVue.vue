@@ -828,6 +828,7 @@ export default {
     },
   },
   methods: {
+
     toNextPage(){
         this.$store.commit('increment')
         this.sectionPrev = this.section

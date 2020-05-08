@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import Vuex from 'vuex'
+import db from './components/firebaseInit'
 
 Vue.use(Vuex)
-
 const store = new Vuex.Store({
   state: {
     appealSection: -2,
@@ -18,22 +18,53 @@ const store = new Vuex.Store({
     savingsCalc: false,
     questions: -1,
     savingsVal: 0,
-
+    clientID: '',
+    
+    // Form 1
     inputAddress: '',
     inputCity: '',
     inputState: '',
     inputZipCode: '',
     formOneError: [],
 
+    // Form 3
     inputFirstName: '',
     inputLastName: '',
     inputEmail: '',
     inputPhoneNum: '',
 
+    // Form 2
     countyAnswers: [-1,-1,-1],
     firstDone: false,
   },
   getters:{
+    //Form 1 getters
+    getinputAddress(state){
+      return state.inputAddress
+    },
+    getinputCity(state){
+      return state.inputCity
+    },
+    getinputState(state){
+      return state.inputState
+    },
+    getinputZipCode(state){
+      return state.inputZipCode
+    },
+    //Form 3 getters
+    getinputFirstName(state){
+      return state.inputFirstName
+    },
+    getinputLastName(state){
+      return state.inputLastName
+    },
+    getinputEmail(state){
+      return state.inputEmail
+    },
+    getinputPhoneNum(state){
+      return state.inputPhoneNum
+    },
+
     savingsValGet(state) {
       return state.savingsVal
     },
@@ -93,17 +124,72 @@ const store = new Vuex.Store({
     },
     increment (state) {
       state.appealSection++
+      window.console.log("Tanjie" , state.appealSection)
+      if (state.appealSection > 0){
+        window.console.log("Im creebin")
+        var object
+        switch (state.appealSection) {
+          case 1:
+            object = { 
+                Address: state.inputAddress,
+                City: state.inputCity,
+                State: state.inputState,
+                ZipCode: state.inputZipCode
+              }
+            break;
+          case 2:
+            object = { 
+                PrimaryResidence: state.countyAnswers[0],
+                Veteran: state.countyAnswers[1],
+                Over65: state.countyAnswers[2]
+              }
+            break;
+          case 3:
+            object = { 
+                FirstName: state.inputFirstName,
+                LastName: state.inputLastName,
+                Email: state.inputEmail,
+                PhoneNum: state.inputPhoneNum
+              }
+            break;
+          default:
+            object = {}
+            window.console.log("I broke help")
+            window.console.log(state.appealSection)
+            break;
+        }
+        window.console.log("Im creeebo")
+        window.console.log(object)
+        if (state.clientID.length <= 0){
+            window.console.log("Adding first Form")
+            db.collection("FormSub").add(object)
+            .then(function(docRef) {
+                window.console.log("Document written with ID: ", docRef.id);
+                state.clientID = docRef.id
+            })
+            .catch(function(error) {     
+                window.console.error("Error adding document: ", error);
+            });
+          }else if (Object.keys(object).length > 0){
+            window.console.log("Setting Document")
+            db.collection("FormSub").doc(state.clientID).set(object,{ merge: true })
+            .then(function() {
+                window.console.log("Document written with ID: ")
+            })
+            .catch(function(error) {     
+                window.console.error("Error adding document: ", error);
+            });
+          }
+      }
+      if (state.appealSection == 3){
+        setTimeout(() => state.savingsCalc = true, 4000)
+      }
     },
     incrementQuestions(state) {
       state.questions++
     },
     decrementQuestions(state) {
       state.questions--
-    },
-    incrementAndSavings (state) {
-      window.console.log('increment and save' ,state.savingsCalc, state.appealSection)
-      state.appealSection++
-      setTimeout(() => state.savingsCalc = true, 4000)
     },
     decrement (state) {
       state.appealSection--
