@@ -11,9 +11,7 @@
         <div class="calcsavings flex flex-col items-center">
           <font-awesome-icon class="text-white mt-2 w-full ml-auto mr-4 hover:text-orange-700 cursor-pointer" @click="flipChat" :icon="['fas', 'times']" size="lg" />
           <div class="flex flex-col items-center px-4 pb-3">
-            <p class="text-white text-xl font-medium">Let's Chat!</p>
-            <p class="text-white text-sm">Ask us any questions</p>
-            <p class="text-white text-sm mt-6 text-center">You are now connected with <br> <span class="text-center font-medium">Johnathan</span></p>
+            <p class="text-white text-sm mb-2 text-center">You are now connected with <br> <span class="text-center font-medium">Johnathan</span></p>
             
 
           </div>
@@ -84,17 +82,34 @@
     > 
       <div v-if="navBar==1 && $store.state.appealSection >= -1 && $store.state.appealSection<3" class="fixed top-0 h-screen w-screen flex flex-col items-center pb-32 md:pb-24 justify-end " style="z-index: 1000; width:99%; pointer-events:none;">
       <div class="flex items-center w-full md:w-3/4" style="max-width:900px" :class="($store.state.appealSection >= 1) ? 'justify-between' : 'justify-end'">
-        <div v-if="$store.state.appealSection > 0" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
+        <div v-if="$store.state.appealSection > 0 || ($store.state.appealSection==1 && questionsVal==-1)" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrement')">
+            <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" :icon="['fas', 'chevron-down']" />
+            
+            <p class="text-xs md:text-md">Back</p>
+        </div>
+        <div v-if="$store.state.appealSection == 1 && (questionsVal!=-1)" class="shadow-md bg-gray-300 text-gray-900 md:mt-6 h-12 mx-2 px-10 md:px-12 py-3 rounded-md flex items-center justify-center hover:bg-gray-400 cursor-pointer pointer-events-auto" @click="$store.commit('decrementQuestions')">
             <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" :icon="['fas', 'chevron-down']" />
             
             <p class="text-xs md:text-md">Back</p>
         </div>
         
-        <div v-if="$store.state.appealSection ==-1 && $store.state.firstDone" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
+        <div v-if="$store.state.appealSection == 0 && (canSubmitFormUno)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
-        <div v-if="($store.state.appealSection ==-1 || $store.state.appealSection ==0) && !$store.state.firstDone" class="shadow-md hidden md:flex bg-teal-500 mx-2 opacity-50 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center pointer-events-auto" >
+        <div v-if="$store.state.appealSection == 0 && (!canSubmitFormUno)" class="opacity-50 shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="$store.state.appealSection == 1 && (!canSubmitFormUno)" class="opacity-50 shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="$store.state.appealSection == 2 && (canSubmitFormThree)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('incrementAndSavings')">
+            <p class="text-xs md:text-md">Continue</p>
+            <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
+        </div>
+        <div v-if="$store.state.appealSection == 2 && (!canSubmitFormThree)" class="opacity-50 shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto">
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
@@ -105,7 +120,7 @@
     </transition>
     
 
-    <AppealVue v-if="navBar==1" />
+    <AppealVue @changeResidence="changeResidence($event)" @changeVet="changeVet($event)" @changeSixtyFive="changeSixtyFive($event)" :isVet="isVet" :isSixtyFive="isSixtyFive" :isResidence="isResidence" :questionsNum="questionsNum" v-if="navBar==1" />
     <div v-if="!(navBar==1)" class="flex flex-col w-full -mt-16">
       <div  class="flex flex-col ">
       
@@ -181,19 +196,19 @@
                 <p class="font-medium hidden sm:block sm:text-2xl mb-6 text-gray-800">
                   What is realAppeal?
                 </p>
-                <p class="text-md sm:text-lg font-light hidden lg:block animated">realAppeal is an online solution for porperty tax appeals.
+                <p class="text-md sm:text-lg font-light hidden lg:block animated">realAppeal is an online solution for property tax appeals.
                 We help homeowners identify if they're paying too much in
                 real estate taxes. If so, we can quickly appeal their property
                 taxes getting property owners the savings they deserve. We are
                 currently filing appeals for customers nationwide, in accordance
                 with local laws and deadlines.</p>
-                <p class="text-md hidden font-light sm:block mr-8 lg:hidden animated">realAppeal is an online solution for porperty tax appeals.
+                <p class="text-md hidden font-light sm:block mr-8 lg:hidden animated">realAppeal is an online solution for property tax appeals.
                 We help homeowners identify if they're paying too much in
                 real estate taxes. If so, we can quickly appeal their property
                 taxes getting property owners the savings they deserve. We are
                 currently filing appeals for customers nationwide, in accordance
                 with local laws and deadlines.</p>
-                <p class="text-md font-light block sm:hidden ml-12 mr-8 animated">realAppeal is an online solution for porperty tax appeals.
+                <p class="text-md font-light block sm:hidden ml-12 mr-8 animated">realAppeal is an online solution for property tax appeals.
                 We help homeowners identify if they're paying too much in
                 real estate taxes.</p>
               </div>
@@ -433,7 +448,7 @@
 
 
                 <div class="flex items-baseline mb-1">
-                  <p class="md:text-2xl text-sm sm:text-md font-medium ml-2 text-gray-800"> Lawyers/Attorneys </p>
+                  <p class="md:text-2xl text-sm sm:text-md font-medium ml-2 text-gray-800"> Lawyers/Tax Specialists </p>
                 
                 </div>
               
@@ -479,7 +494,7 @@
           <p class="text-blue-800 pt-6 hidden md:block text-sm font-light lg:text-lg lg:ml-12">Use our free property tax savings calculator and find out how <br> much you could lower your real estate taxes</p>
         </div>
         <div class="flex flex-col md:pl-6">
-          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white rounded lg:ml-4 my-3 mt-4 md:ml-5 calcsavingsbtn">Calculate Savings</button>
+          <button class="px-4 text-sm sm:text-lg py-1 lg:px-8 lg:py-2 shadow-lg text-white rounded lg:ml-4 my-3 mt-4 md:ml-5 bg-blue-900">Calculate Savings</button>
 
         </div>
       </div>
@@ -512,9 +527,13 @@
       </div>
       <div class="flex-1 flex flex-col items-start hidden lg:block">
         <p class="text-2xl text-teal-600 font-medium">Terms</p>
+        <p class="mt-2 text-sm hover:underline text-blue-400 cursor-pointer font-normal">Read our Terms of Service</p>
+
       </div>
       <div class="flex-1 flex flex-col items-start hidden md:block">
         <p class="text-2xl text-teal-600 font-medium">Legal</p>
+        <p class="mt-2 text-sm hover:underline text-blue-400 cursor-pointer font-normal">Read our Privacy Policy</p>
+
       </div>
     </div>
     </div>
@@ -546,6 +565,11 @@ export default {
   }, 
   data: function() {
     return {
+      questionsNum: 0,
+      isResidence: -1,
+      isVet: -1,
+      isSixtyFive: -1,
+
       navBar: 0,
       showChat: true,
       appeal: false,
@@ -564,6 +588,18 @@ export default {
     if(this.width < 600) this.ind = 1
   },
   methods: {
+    changeResidence(val) {
+      this.isResidence = val
+      this.questionsNum += 1
+    },
+    changeVet(val) {
+      this.isVet = val
+      this.questionsNum += 1
+    },
+    changeSixtyFive(val) {
+      this.isSixtyFive = val
+      this.$store.commit('increment')
+    },
     flipChat() {
       this.showChat = !this.showChat
     },
@@ -579,12 +615,24 @@ export default {
     }
   },
   computed: {
+    appealSection() {
+      return this.$store.getters.appealSecGet
+    },
     chatStyle() {
       let outArr = []
       outArr.push(this.showChat ? 'pb-10' : 'pb-0')
       outArr.push(this.navBar==1 ? ['opacity-0', 'md:opacity-100', 'pointer-events-none', 'pointer-events-auto']: '')
       return outArr
-    }
+    },
+    canSubmitFormUno() {
+      return this.$store.getters.canSubmitFormOne
+    },
+    canSubmitFormThree() {
+      return this.$store.getters.canSubmitFormThree
+    },
+    questionsVal() {
+        return this.$store.getters.questionsVal
+    },
   }
 }
 </script>

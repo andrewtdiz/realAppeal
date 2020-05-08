@@ -16,23 +16,65 @@ const store = new Vuex.Store({
     canSubmitThree: false,
     canSubmitFour: false,
     savingsCalc: false,
-    questions: 0,
+    questions: -1,
 
     inputAddress: '',
     inputCity: '',
     inputState: '',
     inputZipCode: '',
 
+    inputFirstName: '',
+    inputLastName: '',
+    inputEmail: '',
+    inputPhoneNum: '',
+
     countyAnswers: [-1,-1,-1],
     firstDone: false,
   },
+  getters:{
+    appealSecGet(state) {
+      return state.appealSection
+    },
+    canSubmitFormOne(state) {
+      return state.inputAddress.length!=0 && state.inputCity.length!=0 && state.inputState.length!=0 && state.inputZipCode.length!=0
+    },
+    canSubmitFormThree(state) {
+      return state.inputFirstName.length!=0 && state.inputLastName.length!=0 && state.inputEmail.length!=0 && state.inputPhoneNum.length!=0
+    },
+    questionsVal(state) {
+      window.console.log(state.countyAnswers)
+      return state.questions
+    },
+  },
   mutations: {
+    changeinputFirstName(state, { val }){
+      state.inputFirstName = val
+    },
+    changeinputLastName(state, { val }){
+      state.inputLastName = val
+    },
+    changeinputEmail(state, { val }){
+      state.inputEmail = val
+    },
+    changeinputPhoneNum(state, { val }){
+      state.inputPhoneNum = val
+    },
+
     changeAddress(state, { val }){
       state.inputAddress = val
     },
+    changeCity(state, { val }){
+      state.inputCity = val
+    },
+    changeState(state, { val }){
+      state.inputState = val
+    },
+    changeZipCode(state, { val }){
+      state.inputZipCode = val
+    },
     setCountyAnswers(state, { ind, val }) {
-      state.countyAnswers[ind] = val
       window.console.log(state.countyAnswers)
+      state.countyAnswers[ind] = val
     },
     increment (state) {
       state.appealSection++
@@ -63,7 +105,8 @@ const store = new Vuex.Store({
     canSubmitFourFalse(state) {
       state.canSubmitFour = false
     },
-  }
+
+  },
 })
 
 library.add(faUserSecret)
