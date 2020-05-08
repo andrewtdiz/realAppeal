@@ -25,13 +25,19 @@ const store = new Vuex.Store({
     inputCity: '',
     inputState: '',
     inputZipCode: '',
-    formOneError: [],
+
+    // indexes: 0=address 1=city 2=zipcode 
+    // 1 denotes error found
+    formOneError: [0,0,0],
 
     // Form 3
     inputFirstName: '',
     inputLastName: '',
     inputEmail: '',
     inputPhoneNum: '',
+    // indexes: 0=FirstName 1=LastName 2=Email 3=PhoneNum
+    // 1 denotes error found
+    formThreeError: [0,0,0,0],
 
     // Form 2
     countyAnswers: [-1,-1,-1],
@@ -40,10 +46,27 @@ const store = new Vuex.Store({
     inputPrimaryCity: '',
     inputPrimaryState: '',
     inputPrimaryZipCode: '',
+
+    // indexes: 0=address 1=city 2=zipcode
+    // 1 denotes error found
+    formTwoError: [0,0,0],
+
     firstDone: false,
     questionsNum: -1,
   },
   getters:{
+    
+    getformThreeError(state){
+      return state.formThreeError
+    },
+    getformTwoError(state){
+      return state.formTwoError
+    },
+
+    getformOneError(state){
+      return state.formOneError
+    },
+
     //Form 1 getters
     getinputAddress(state){
       return state.inputAddress
@@ -163,70 +186,111 @@ const store = new Vuex.Store({
       state.countyAnswers[ind] = val
     },
     increment (state) {
-      state.appealSection++
-      if(state.appealSection==1) {
-        state.questionsNum = 0
 
-      }
-      window.console.log("Tanjie" , state.appealSection)
-      if (state.appealSection > 0){
-        window.console.log("Im creebin")
-        var object
-        switch (state.appealSection) {
-          case 1:
-            object = { 
-                Address: state.inputAddress,
-                City: state.inputCity,
-                State: state.inputState,
-                ZipCode: state.inputZipCode
-              }
-            break;
-          case 2:
-            object = { 
-                PrimaryResidence: state.countyAnswers[0],
-                Veteran: state.countyAnswers[1],
-                Over65: state.countyAnswers[2]
-              }
-            break;
-          case 3:
-            object = { 
-                FirstName: state.inputFirstName,
-                LastName: state.inputLastName,
-                Email: state.inputEmail,
-                PhoneNum: state.inputPhoneNum
-              }
-            break;
-          default:
-            object = {}
-            window.console.log("I broke help")
-            window.console.log(state.appealSection)
-            break;
-        }
-        window.console.log("Im creeebo")
-        window.console.log(object)
-        if (state.clientID.length <= 0){
-            window.console.log("Adding first Form")
-            // db.collection("FormSub").add(object)
-            // .then(function(docRef) {
-            //     window.console.log("Document written with ID: ", docRef.id);
-            //     state.clientID = docRef.id
-            // })
-            // .catch(function(error) {     
-            //     window.console.error("Error adding document: ", error);
-            // });
-          }else if (Object.keys(object).length > 0){
-            window.console.log("Setting Document")
-            // db.collection("FormSub").doc(state.clientID).set(object,{ merge: true })
-            // .then(function() {
-            //     window.console.log("Document written with ID: ")
-            // })
-            // .catch(function(error) {     
-            //     window.console.error("Error adding document: ", error);
-            // });
+      var go = true
+      switch (state.appealSection) {
+        case 0:
+          state.formOneError[0] = (state.inputAddress.search(/^\s*\S+(?:\s+\S+){2}/) >= 0) ? 0:1
+          state.formOneError[1] = (state.inputCity.search(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/) >= 0) ? 0:1
+          state.formOneError[2] = (state.inputZipCode.search(/^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/) >= 0) ? 0:1
+          if (state.formOneError[0] || state.formOneError[1] || state.formOneError[2]){
+            go = false
+            window.console.log("formErrors: " , state.formOneError)
           }
+          break;
+        case 1:
+          if (state.primaryDifferent){
+            state.formTwoError[0] = (state.inputPrimaryAddress.search(/^\s*\S+(?:\s+\S+){2}/) >= 0) ? 0:1
+            state.formTwoError[1] = (state.inputPrimaryCity.search(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/) >= 0) ? 0:1
+            state.formTwoError[2] = (state.inputPrimaryZipCode.search(/^((\d{5}-\d{4})|(\d{5})|([A-Z]\d[A-Z]\s\d[A-Z]\d))$/) >= 0) ? 0:1
+          }
+          if (state.formTwoError[0] || state.formTwoError[1] || state.formTwoError[2]){
+            go = false
+            window.console.log("formErrors: " , state.formTwoError)
+          }
+          break;
+        case 2:
+          state.formThreeError[0] = (state.inputFirstName.length >= 2) ? 0:1
+          state.formThreeError[1] = (state.inputLastName.length >= 2) ? 0:1
+          state.formThreeError[2] = (state.inputEmail.search(/^\S+@\S+.\S+$/) >= 0) ? 0:1
+          state.formThreeError[3] = (state.inputPhoneNum.search(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/) >= 0) ? 0:1
+          if (state.formThreeError[0] || state.formThreeError[1] || state.formThreeError[2]){
+            go = false
+            window.console.log("formErrors: " , state.formThreeError)
+          }
+          break;
+        default:
+          object = {}
+          window.console.log("Im doin fine")
+          window.console.log(state.appealSection)
+          break;
       }
-      if (state.appealSection == 3){
-        setTimeout(() => state.savingsCalc = true, 4000)
+      if (go){
+        state.appealSection++
+        if(state.appealSection==1) {
+          state.questionsNum = 0
+
+        }
+        window.console.log("Tanjie" , state.appealSection)
+        if (state.appealSection > 0){
+          window.console.log("Im creebin")
+          var object
+          switch (state.appealSection) {
+            case 1:
+              object = { 
+                  Address: state.inputAddress,
+                  City: state.inputCity,
+                  State: state.inputState,
+                  ZipCode: state.inputZipCode
+                }
+              break;
+            case 2:
+              object = { 
+                  PrimaryResidence: state.countyAnswers[0],
+                  Veteran: state.countyAnswers[1],
+                  Over65: state.countyAnswers[2]
+                }
+              break;
+            case 3:
+              object = { 
+                  FirstName: state.inputFirstName,
+                  LastName: state.inputLastName,
+                  Email: state.inputEmail,
+                  PhoneNum: state.inputPhoneNum
+                }
+              break;
+            default:
+              object = {}
+              window.console.log("I broke help")
+              window.console.log(state.appealSection)
+              break;
+          }
+          window.console.log("Im creeebo")
+          window.console.log(object)
+          if (state.clientID.length <= 0){
+              window.console.log("Adding first Form")
+              // db.collection("FormSub").add(object)
+              // .then(function(docRef) {
+              //     window.console.log("Document written with ID: ", docRef.id);
+              //     state.clientID = docRef.id
+              // })
+              // .catch(function(error) {     
+              //     window.console.error("Error adding document: ", error);
+              // });
+            }else if (Object.keys(object).length > 0){
+              window.console.log("Setting Document")
+              // db.collection("FormSub").doc(state.clientID).set(object,{ merge: true })
+              // .then(function() {
+              //     window.console.log("Document written with ID: ")
+              // })
+              // .catch(function(error) {     
+              //     window.console.error("Error adding document: ", error);
+              // });
+            }
+        }
+        if (state.appealSection == 3){
+          setTimeout(() => state.savingsCalc = true, 4000)
+        }
       }
     },
     incrementQuestions(state) {
