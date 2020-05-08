@@ -16,7 +16,7 @@
                 <!-- <p class="absolute hidden md:block bottom-0 font-medium text-center w-full mt-1 text-sm uppercase progbar" :class="(ind)<=$store.state.appealSection ? 'text-gray-700' : 'text-gray-400'">{{item}}</p> -->
             <!-- </div> -->
 
-            <div class="absolute h-full rounded left-0 top:0 h-6 w-full overflow-x-hidden overflow-y-hidden dropdslow" :class="($store.state.appealSection<3) ? 'bg-blue-800' : !$store.state.savingsCalc ? 'bg-teal-500' : 'bg-teal-500'" :style="{width: $store.state.appealSection>-1 ? ($store.state.appealSection)/(sectionArr.length-1)*100 + '%' : '0%'}">
+            <div class="absolute h-full rounded left-0 top:0 h-6 w-full overflow-x-hidden overflow-y-hidden dropdslow" :class="($store.state.appealSection<3) ? 'bg-blue-800' : !$store.state.savingsCalc ? 'bg-teal-500' : 'bg-teal-500'" style="max-width: 100%;" :style="{width: $store.state.appealSection>-1 ? ($store.state.appealSection)/(sectionArr.length-1)*100 + '%' : '0%'}">
                 
                 <div class="absolute flex flex-col justify-center items center h-full" style="left:450px; transform: translateX(-50%); white-space: nowrap; overflow: hidden;">
                     <p v-if="showPercent" class="text-lg inline text-white font-medium " style=" white-space: nowrap; overflow: hidden;" >Progress: {{Math.round(($store.state.appealSection)/(sectionArr.length-1)*100)}}%</p>
@@ -592,13 +592,8 @@
                 <div class="flex flex-col w-full items-center">  
                     <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Thank you</p>
                     
-                    <p class="text-lg w-full text-gray-800 text-center mt-8 mb-4">WE have received your request and will reach out to you within <b>24 business hours</b> at the contact address you provided</p>
+                    <p class="text-lg w-full text-gray-800 text-center mt-8 mb-4">We have received your request and will reach out to you within <b>24 business hours</b> at the contact address you provided</p>
                     
-
-                    <div class="cursor-pointer bg-teal-500 text-white mt-12 h-12 w-48 px-2 py-3 rounded-md flex justify-center hover:bg-teal-600" @click="toNextPage">
-                        <p v-if="!submitted">Finalize my savings</p>
-                        <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
-                    </div>
                 </div>
 
             
@@ -813,7 +808,10 @@ export default {
       while(i%10==0 || i%2==1 || i<400) {
           i = Math.floor(Math.random()*1200) + 400
       }
-      this.numGenerated = i
+      this.$store.commit('savingsValSet', {val: i})
+      if(this.savingsValGet!=0) this.numGenerated = this.savingsValGet 
+      else this.numGenerated = i
+
   },
   computed: {
       enterClasses(val) {
@@ -824,6 +822,9 @@ export default {
       },
       questionsVal() {
         return this.$store.getters.questionsVal
+    },
+    savingsValGet() {
+        return this.$store.getters.savingsValGet
     },
   },
   methods: {
@@ -890,6 +891,7 @@ export default {
       },
   },
   watch: {
+      
       inputAgreedToPrivacy() {
           if(this.inputAgreedToPrivacy && this.inputAgreedToTerms) {
             this.$store.commit('canSubmitFourTrue')

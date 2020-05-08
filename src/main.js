@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     canSubmitFour: false,
     savingsCalc: false,
     questions: -1,
+    savingsVal: 0,
 
     inputAddress: '',
     inputCity: '',
@@ -33,6 +34,9 @@ const store = new Vuex.Store({
     firstDone: false,
   },
   getters:{
+    savingsValGet(state) {
+      return state.savingsVal
+    },
     appealSecGet(state) {
       return state.appealSection
     },
@@ -51,6 +55,10 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    savingsValSet(state, { val }) {
+      window.console.log('hi', state.savingsVal)
+      state.savingsVal = val
+    },
     changeFormOneErr(state, { val }){
       state.formOneError = val
     },

@@ -18,34 +18,9 @@
         </div>
         
 
-        <div class="max-h-64 h-64 overflow-y-auto flex bg-gray-300 flex-col-reverse">
+        <div class="max-h-64 h-64 overflow-y-auto flex justify-end bg-gray-300 flex-col">
 
-          <div class="flex items-center mb-6 flex-col items-start w-full">
-            <div class="flex flex-row-reverse items-start w-full">
-              <div class="flex-1 text-sm flex flex-col items-end ml-6 mr-0">
-                <div class="text-sm flex px-3 py-3 shadow rounded mt-1 bg-teal-500 mr-2 bg-white">
-                  <p class="text-white leading-none">Let me know what I should do!</p>
-                </div>
-                  <p class="text-gray-700 leading-none text-right text-xs mr-4 mt-2 w-full">1:25 p.m.</p>
-                
-              </div>
-            </div>
-            
-            
-          </div>
-          <div class="flex items-center flex-col items-start w-full">
-            <div class="flex flex-row-reverse items-start w-full">
-              <div class="flex-1 text-sm flex flex-col items-end ml-6 mr-0">
-                <p class="text-gray-900 leading-none font-medium mr-4">You</p>
-                <div class="text-sm flex px-3 py-3 shadow rounded mt-1 bg-teal-500 mr-2 bg-white">
-                  <p class="text-white leading-none">Hi Jonathan! I was just wondering how long the quote takes to</p>
-                </div>
-                
-              </div>
-            </div>
-            
-            
-          </div>
+          
 
           <div class="flex items-center mb-6 flex-col items-start w-full">
             <div class="flex justify-start items-start w-full pl-3">
@@ -64,6 +39,22 @@
             
             
           </div>
+
+          
+          <div v-for="(message,ind) in messages" :key="ind"  class="flex items-center flex-col items-start w-full mb-2">
+            <div class="flex flex-row-reverse items-start w-full">
+              <div class="flex-1 text-sm flex flex-col items-end ml-6 mr-0">
+                <p class="text-gray-900 leading-none font-medium mr-4">You</p>
+                <div class="text-sm flex px-3 py-3 shadow rounded mt-1 bg-teal-500 mr-2 bg-white">
+                  <p class="text-white leading-none">{{message.val}}</p>
+                </div>
+                <p class="text-white text-right text-xs text-gray-800 mr-3 mt-1 leading-none">{{message.time}}</p>
+                
+              </div>
+            </div>
+            
+            
+          </div>
           
           <div class="w-full" style="min-height: 145px">
             
@@ -71,7 +62,7 @@
 
         </div>
         <div class="flex items-center w-96">
-          <input class="appearance-none block w-full font-normal text-gray-500 border-t w-96 border-gray-400 py-4 pl-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Type message here">
+          <input @keydown.enter="addMessage" v-model="messageContent" class="appearance-none block w-full font-normal text-gray-800 border-t w-96 border-gray-400 py-4 pl-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Type message here">
         </div>
       </div>
     </div>
@@ -569,6 +560,9 @@ export default {
       isResidence: -1,
       isVet: -1,
       isSixtyFive: -1,
+      messages: [],
+      messageContent: '',
+
 
       navBar: 0,
       showChat: true,
@@ -623,7 +617,13 @@ export default {
     changeInd() {
       if(this.ind > this.bg.length-1) this.ind = 0
       else this.ind += 1
-    }
+    },
+    addMessage() {
+      let time = new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")
+      this.messages.push({val: this.messageContent, time})
+      this.messageContent = ''
+
+    },
   },
   computed: {
     appealSection() {

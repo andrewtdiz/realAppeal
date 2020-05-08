@@ -28,8 +28,8 @@
 
           
 
-          <div class="hidden lg:h-full lg:flex items-center mt-3 justify-between w-2/5  lg:block">
-            <div class="flex flex-col justify-center h-full px-3 cursor-pointer" :class="navBar==0 ? ['text-teal-500'] : ['text-gray-900', 'hover:text-orange-600']" @click="$emit('homeBoi')">
+          <div class="hidden lg:h-full lg:flex items-center mt-3 justify-end w-2/5  lg:block">
+            <div class="flex flex-col justify-center h-full px-12 cursor-pointer" :class="navBar==0 ? ['text-teal-500'] : ['text-gray-900', 'hover:text-orange-600']" @click="$emit('homeBoi')">
               <p class="text-md font-medium navbutton calcsavingsbtn">Home</p>
               
 
@@ -38,7 +38,7 @@
               <p class="text-md font-medium navbutton">Appeal</p>
 
             </div>
-            <div class="flex flex-col justify-center font-medium text-gray-900 hover:text-orange-600 h-full px-3 cursor-pointer" @mouseenter="hovering = true" @mouseleave="hovering = false">
+            <!-- <div class="flex flex-col justify-center font-medium text-gray-900 hover:text-orange-600 h-full px-3 cursor-pointer" @mouseenter="hovering = true" @mouseleave="hovering = false">
               <p class="text-md navbutton calcsavingsbtn" :class="hovering ? 'calcsavingsbtn2' : ''">Learn More 
               <font-awesome-icon class="ml-1" :icon="['fas', 'chevron-down']" size="sm" /></p>
               <div class="absolute flex flex-col border border-gray-400 rounded bg-blue mt-20 w-48 bg-white shadow-lg cursor-default navbutton" :class="hovering ? ['top-0', 'opacity-100', 'pointer-events-auto'] : ['pointer-events-none', 'top-4', 'opacity-0']">
@@ -52,7 +52,7 @@
                   <p class="text-left w-full">Contact Us</p>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           
         </div>
