@@ -820,9 +820,7 @@ export default {
   },
   methods: {
     enterResidence() {
-        window.console.log(this.getPrimaryDifferent)
         this.$store.commit('setPrimaryDifferent', { val: true} )
-        window.console.log(this.getPrimaryDifferent)
         
         // this.$emit('changeResidence', 0)
     },
