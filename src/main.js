@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import Vuex from 'vuex'
-import db from './components/firebaseInit'
+// import db from './components/firebaseInit'
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -35,7 +35,13 @@ const store = new Vuex.Store({
 
     // Form 2
     countyAnswers: [-1,-1,-1],
+    primaryDifferent: false,
+    inputPrimaryAddress: '',
+    inputPrimaryCity: '',
+    inputPrimaryState: '',
+    inputPrimaryZipCode: '',
     firstDone: false,
+    questionsNum: -1,
   },
   getters:{
     //Form 1 getters
@@ -77,6 +83,9 @@ const store = new Vuex.Store({
     canSubmitFormOne(state) {
       return state.inputAddress.length!=0 && state.inputCity.length!=0 && state.inputState.length!=0 && state.inputZipCode.length!=0
     },
+    canSubmitFormTwo(state) {
+      return state.inputPrimaryAddress.length!=0 && state.inputPrimaryCity.length!=0 && state.inputPrimaryState.length!=0 && state.inputPrimaryZipCode.length!=0
+    },
     canSubmitFormThree(state) {
       return state.inputFirstName.length!=0 && state.inputLastName.length!=0 && state.inputEmail.length!=0 && state.inputPhoneNum.length!=0
     },
@@ -84,8 +93,26 @@ const store = new Vuex.Store({
       window.console.log(state.countyAnswers)
       return state.questions
     },
+    getQuestionsNum(state) {
+      return state.questionsNum
+    },  
+    getCountyAnswers(state) {
+      return state.countyAnswers
+    },
+    getSavingsCalc(state) {
+      return state.savingsCalc
+    },  
+    getPrimaryDifferent(state) {
+      return state.primaryDifferent
+    }
   },
   mutations: {
+    setPrimaryDifferent(state, { val }) {
+      state.primaryDifferent = val
+    },
+    questionsNumInc(state) {
+      state.questionsNum++
+    },
     savingsValSet(state, { val }) {
       window.console.log('hi', state.savingsVal)
       state.savingsVal = val
@@ -118,12 +145,29 @@ const store = new Vuex.Store({
     changeZipCode(state, { val }){
       state.inputZipCode = val
     },
+    changePrimaryAddress(state, { val }){
+      state.inputPrimaryAddress = val
+    },
+    changePrimaryCity(state, { val }){
+      state.inputPrimaryCity = val
+    },
+    changePrimaryState(state, { val }){
+      state.inputPrimaryState = val
+    },
+    changePrimaryZipCode(state, { val }){
+      state.inputPrimaryZipCode = val
+    },
     setCountyAnswers(state, { ind, val }) {
       window.console.log(state.countyAnswers)
+      if(ind==0 && val==1) state.primaryDifferent = false
       state.countyAnswers[ind] = val
     },
     increment (state) {
       state.appealSection++
+      if(state.appealSection==1) {
+        state.questionsNum = 0
+
+      }
       window.console.log("Tanjie" , state.appealSection)
       if (state.appealSection > 0){
         window.console.log("Im creebin")
@@ -162,23 +206,23 @@ const store = new Vuex.Store({
         window.console.log(object)
         if (state.clientID.length <= 0){
             window.console.log("Adding first Form")
-            db.collection("FormSub").add(object)
-            .then(function(docRef) {
-                window.console.log("Document written with ID: ", docRef.id);
-                state.clientID = docRef.id
-            })
-            .catch(function(error) {     
-                window.console.error("Error adding document: ", error);
-            });
+            // db.collection("FormSub").add(object)
+            // .then(function(docRef) {
+            //     window.console.log("Document written with ID: ", docRef.id);
+            //     state.clientID = docRef.id
+            // })
+            // .catch(function(error) {     
+            //     window.console.error("Error adding document: ", error);
+            // });
           }else if (Object.keys(object).length > 0){
             window.console.log("Setting Document")
-            db.collection("FormSub").doc(state.clientID).set(object,{ merge: true })
-            .then(function() {
-                window.console.log("Document written with ID: ")
-            })
-            .catch(function(error) {     
-                window.console.error("Error adding document: ", error);
-            });
+            // db.collection("FormSub").doc(state.clientID).set(object,{ merge: true })
+            // .then(function() {
+            //     window.console.log("Document written with ID: ")
+            // })
+            // .catch(function(error) {     
+            //     window.console.error("Error adding document: ", error);
+            // });
           }
       }
       if (state.appealSection == 3){
@@ -189,7 +233,7 @@ const store = new Vuex.Store({
       state.questions++
     },
     decrementQuestions(state) {
-      state.questions--
+      state.questionsNum--
     },
     decrement (state) {
       state.appealSection--

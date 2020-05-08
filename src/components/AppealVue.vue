@@ -93,7 +93,7 @@
             name="list" tag="div">
             
 
-            <div v-if="$store.state.appealSection == 0" key="1"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
+            <div key="1" :class="appealSecGet==0 ? 'questioncenter' : ['questionleftlarge', 'pointer-events-none']" class="questiontrans absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
                 <div class="flex items-stretch rounded-lg mb-12 dropdslow ">
                     <div class="flex flex-col px-2 md:px-16 pt-3 pb-20 ">
                         <div class="flex items-start flex-col mb-2 md:pt-6 md:mb-4">
@@ -127,9 +127,10 @@
                                         </label>
                                         <div class="relative">
                                             <select v-model="inputState" class="cursor-pointer text-sm md:text-md border-gray-400 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
-                                                <option selected>California</option>
-                                                <option>Texas</option>
-                                                <option>New York</option>
+                                                <option class="text-lg" selected>CA</option>
+                                                <option class="text-lg">TX</option>
+                                                <option class="text-lg">NY</option>
+                                                <option class="text-lg">WA</option>
                                             </select>
                                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -169,7 +170,7 @@
 
             </div>
 
-            <div v-else-if="$store.state.appealSection == 1" key="2"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
+            <div :class="appealSecGet==1 ? 'questioncenter' : appealSecGet==0 ? ['questionrightlarge', 'pointer-events-none'] : ['questionleftlarge', 'pointer-events-none']" key="2"  class="questiontrans absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
                 <div class="flex items-stretch rounded-lg mb-12 dropdslow ">
                     <div class="flex flex-col px-2 md:px-16 pt-3 pb-20 md:py-2">
                         <div class="flex items-start flex-col mb-2 md:pt-2 md:mb-4">
@@ -178,15 +179,15 @@
                         
                         <p class="text-md md:text-xl text-left w-full text-gray-800 my-2">We have a few more questions that are specific to the property tax laws of your county  </p>
 
-                        <form class="w-full flex flex-wrap mt-4 md:mt-6">
+                        <form class="relative w-full flex flex-wrap mt-4 md:mt-6">
                             
-                                <div v-if="questionsNum == 0" class="w-1/2 flex flex-col items-center pr-2 mt-4">
-                                <p class="w-full block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
+                                <div class="w-full absolute top-0 flex flex-col items-center pr-2 questiontrans" style="left:0%" :class="(questionsNumStore==1 || questionsNumStore==2) ? ['questionleft', 'pointer-events-none'] : ['questioncenter']">
+                                <p class="w-1/2 block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
                                     Is this your primary residence?
                                 </p>
 
-                                <div class="w-full justify-between flex mb-2 md:mb-4 ">
-                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeResidence', 1)" :class="questionsVal[0]==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                <div class="w-1/2 justify-between flex mb-2 md:mb-4 ">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeResidence', 1)" :class="(countyAnswers[0]==1 && !getPrimaryDifferent) ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class="fill-current h-1/2 w-1/2 mt-2" viewBox="0 0 513 513" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0)">
                                             <path d="M502.001 492.002H458.001V413.002C458.001 407.479 453.523 403.002 448.001 403.002C442.479 403.002 438.001 407.479 438.001 413.002V492.002H318.001V302.002C318.001 296.479 313.523 292.002 308.001 292.002H204.001C198.479 292.002 194.001 296.479 194.001 302.002V492.002H74.0011V266.001H77.8491C80.5011 
@@ -209,7 +210,7 @@
                                         
                                         <p class="font-medium text-sm md:text-md text-center mt-1 select-none">Yes</p>
                                     </div>
-                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeResidence', 0)" :class="questionsVal[0]==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="enterResidence" :class="getPrimaryDifferent ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         
                                         <svg class="fill-current h-1/2 w-1/2 mt-2" enable-background="new 0 0 512.014 512.014" viewBox="0 0 512.014 512.014" xmlns="http://www.w3.org/2000/svg"><g>
                                             <path d="m162.554 86.993h212.198c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-212.198c-8.834 0-16.021 7.187-16.021 16.021v52.517c0 8.834 7.187 16.021 16.021 16.021h212.198c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-212.198c-.563 0-1.021-.458-1.021-1.021v-52.517c.001-.563.459-1.021 1.021-1.021z"/><path d="m157.495 200.686h18.205c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5h-18.205c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m341.865 185.686h-124.24c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h124.241c4.143 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.501-7.5z"/><path d="m157.495 251.428h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 303.694h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 355.96h184.37c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-184.37c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m157.495 408.227h220.736c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-220.736c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5z"/><path d="m500.579 148.473-2.908-37.638c-.693-8.982-5.593-16.774-12.654-21.504v-14.967c0-12.405-8.412-22.876-19.83-26.025-.285-26.702-22.084-48.339-48.852-48.339h-359.703c-.093 0-.183.011-.274.014-.226.001-.45-.009-.676-.005-26.421.506-47.916 22.422-47.916 48.856v16.025c0 5.207 4.236 9.443 9.443 9.443h73.289v124.168c0 4.143 3.358 7.5 7.5 7.5s7.5-3.357 7.5-7.5v-148.818c0-12.843-5.112-25.395-14.049-34.683h324.886c18.559 0 33.673 15.008 33.857 33.526-11.083 3.363-19.173 13.671-19.173 25.838v14.966c-7.062 4.73-11.961 12.522-12.654 21.503l-2.634 34.083-21.302 14.759c-9.425 6.53-15.052 17.274-15.052 28.74v100.166l-7.8 14.999c-1.911 3.675-.48 8.203 3.194 10.114 1.105.575 2.288.848 3.454.848 2.708 0 5.324-1.473 6.66-4.042l8.646-16.626c.556-1.068.846-2.255.846-3.46v-101.997c0-6.547 3.213-12.682 8.595-16.41l11.389-7.891c-3.548 55.099-3.42 110.803.414 165.823.287 4.132 3.854 7.249 8.003 6.96 4.132-.287 7.248-3.87 6.96-8.003-1.541-22.12-2.475-44.352-2.808-66.609h62.17c-.711 47.042-4.144 94.049-10.252 140.642h-41.672c-1.838-14.024-3.462-28.204-4.81-42.265-.396-4.123-4.063-7.144-8.182-6.75-4.123.396-7.146 4.059-6.75 8.182 1.575 16.428 3.504 33.03 5.732 49.348l5.843 42.784c.649 4.76 3.029 8.934 6.445 11.922.103.493.257.982.466 1.462l15.22 34.964c1.191 2.737 3.893 4.507 6.877 4.507s5.686-1.77 6.877-4.507l15.22-34.964c.209-.479.363-.969.466-1.462 3.417-2.988 5.796-7.162 6.445-11.922l5.843-42.784c11.878-86.975 14.472-175.451 7.711-262.971zm-410.081-89.139h-67.732v-10.469c0-18.319 14.895-33.509 33.203-33.858 8.901-.204 17.45 3.268 23.989 9.682 6.699 6.572 10.541 15.683 10.541 24.994v9.651zm339.913 90.295.47-6.08h54.273l.47 6.08c1.561 20.209 2.596 40.471 3.149 60.752h-61.516c.553-20.306 1.596-40.579 3.154-60.752zm2.909-37.64c.541-7.001 6.465-12.484 13.486-12.484h22.424c7.021 0 12.945 5.483 13.486 12.485l1.279 16.559h-51.955zm12.699-27.484v-10.141c0-6.616 5.383-11.999 11.999-11.999s11.999 5.383 11.999 11.999v10.141h-.787-22.424zm-19.215 162.782c-.02-7.303.023-14.605.133-21.906h62.149c.109 7.301.177 14.604.156 21.906zm45.36 204.911c-.292 2.139-2.141 3.751-4.299 3.751h-19.695c-2.158 0-4.007-1.612-4.299-3.751l-4.68-34.27h37.653zm-18.43 18.751h8.568l-4.284 9.842z"/><path d="m419.984 497.014h-179.963c-4.142 0-7.5 3.357-7.5 7.5s3.358 7.5 7.5 7.5h179.962c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.499-7.5z"/><path d="m208.058 497.014h-99.13c-1.891 0-3.43-1.538-3.43-3.43v-263.12c0-4.143-3.358-7.5-7.5-7.5s-7.5 3.357-7.5 7.5v263.12c0 10.162 8.268 18.43 18.43 18.43h99.13c4.142 0 7.5-3.357 7.5-7.5s-3.358-7.5-7.5-7.5z"/></g>
@@ -219,17 +220,61 @@
                                         <p class="font-medium text-sm md:text-md text-center mt-1 select-none">No</p>
                                     </div>
                                 </div>
+                                <div class="flex flex-wrap -mx-3 mb-2 overflow-y-hidden dropdown pt-6" :class="(getPrimaryDifferent && questionsNumStore == 0) ? 'h-64' : 'h-0'">
+
+                                <div class="w-full px-3">
+                                    <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
+                                        Primary Address
+                                    </label>
+                                    <input v-model="inputPrimaryAddress" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="42 Wallaby Way">
+                                </div>
+                                <div class="w-full flex items-center">
+                                    <div class="w-1/3 px-3 mb-6 md:mb-0">
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
+                                            City
+                                        </label>
+                                        <input v-model="inputPrimaryCity" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Los Angeles">
+                                    </div>
+
+                                    <div class="w-1/3 px-3 mb-6 md:mb-0">
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
+                                            State
+                                        </label>
+                                        <div class="relative">
+                                            <select v-model="inputPrimaryState" class="cursor-pointer border-gray-400 block text-sm md:text-md appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
+                                                <option class="text-lg" selected>CA</option>
+                                                <option class="text-lg">TX</option>
+                                                <option class="text-lg">NY</option>
+                                                <option class="text-lg">WA</option>
+                                            </select>
+                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-1/3 px-3 mb-6 md:mb-0">
+                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
+                                            Zip Code
+                                        </label>
+                                        <input v-model="inputPrimaryZipCode" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
+                                    </div>
+                                </div>
+                                
+
+                                
+                                
+                            </div>
 
                                 </div>
                                 
 
-                                <div v-else-if="questionsNum == 1" class="w-1/2 flex flex-col items-center pr-2" >
+                                <div class="w-1/2 absolute top-0 flex flex-col items-center pr-2 questiontrans" style="left:25%" :class="(questionsNumStore==0) ? ['questionright', 'pointer-events-none'] : (questionsNumStore==1) ? ['questioncenter'] : ['questionleft', 'pointer-events-none']">
                                 <p class="w-full block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
                                     Are you a Veteran?
                                 </p>
                                 <div class="w-full justify-between flex mb-2 md:mb-4 ">
                                     
-                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeVet', 1)" :class="questionsVal[1]==0 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeVet', 1)" :class="countyAnswers[1] == 1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class="h-1/2 w-1/2 fill-current mt-2" viewBox="0 0 424 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0)">
                                             <path d="M246.831 43.466H199.054C194.911 43.466 191.552 46.8238 191.552 50.9677V74.8452C191.552 92.0242 215.148 103.454 219.879 105.57C220.854 106.007 
@@ -289,7 +334,7 @@
                                         </svg>
                                         <p class="font-medium text-sm md:text-md text-center mt-1 select-none">Yes</p>
                                     </div>
-                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeVet', 0)" :class="questionsVal[1]==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeVet', 0)" :class="countyAnswers[1] == 0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class='fill-current h-1/2 w-1/2 mt-2' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                         <g>
@@ -335,13 +380,13 @@
                                 </div>
                                 </div>
 
-                                <div v-else-if="questionsNum == 2" class="w-1/2 flex flex-col items-center pl-2">
+                                <div class="w-1/2 absolute top-0 flex flex-col items-center pr-2 questiontrans" style="left:25%" :class="(questionsNumStore==1 || questionsNumStore==0) ? ['pointer-events-none','questionright'] : ['questioncenter']">
                                 <p class="w-full block tracking-wide text-gray-700 text-xs md:text-md lg:text-lg ml-1 font-medium mb-3 text-left" >
                                     Are you over the age of 65?
                                 </p>
 
                                 <div  class="w-full justify-between flex mb-2 md:mb-4 ">
-                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeSixtyFive', 1)" :class="questionsVal[2]==0 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeSixtyFive', 1)" :class="countyAnswers[2]==1 ? ['border-teal-500', 'text-teal-500'] :['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         <svg class="h-1/2 w-1/2 fill-current mt-2" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                         <g>
@@ -371,7 +416,7 @@
                                         </svg>
                                         <p class="font-medium text-sm md:text-md text-center mt-1 select-none">Yes</p>
                                     </div>
-                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeSixtyFive', 0)" :class="questionsVal[2]==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
+                                    <div class="w-1/2 md:h-32 md:w-48 border-2 ml-4 rounded flex flex-col items-center justify-center cursor-pointer" @click="$emit('changeSixtyFive', 0)" :class="countyAnswers[2]==0 ? ['border-teal-500', 'text-teal-500'] : ['hover:border-gray-400', 'text-gray-500', 'hover:text-gray-600']">
                                         
                                         <svg class='fill-current h-1/2 w-1/2 mt-2' viewBox="0 0 424 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M438 384H374V288C373.974 264.669 364.694 242.301 348.196 225.804C331.699 209.306 309.331 200.026 286 200H205.561C207.853 194.103 208.546 187.706 207.57 
@@ -399,79 +444,16 @@
                             
                             
                             
-                            <div class="flex flex-wrap -mx-3 mb-2 overflow-y-hidden dropdown pt-6" :class="!primaryDifferent ? 'h-64' : 'h-0'">
-
-                                <div class="w-full px-3">
-                                    <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
-                                        Primary Address
-                                    </label>
-                                    <input v-model="inputPrimaryAddress" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="42 Wallaby Way">
-                                </div>
-                                <div class="w-full flex items-center">
-                                    <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
-                                            City
-                                        </label>
-                                        <input v-model="inputPrimaryCity" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Los Angeles">
-                                    </div>
-
-                                    <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
-                                            State
-                                        </label>
-                                        <div class="relative">
-                                            <select v-model="inputPrimaryState" class="cursor-pointer border-gray-400 block text-sm md:text-md appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" >
-                                                <option selected>California</option>
-                                                <option>Texas</option>
-                                                <option>New York</option>
-                                            </select>
-                                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/3 px-3 mb-6 md:mb-0">
-                                        <label class="ml-1 block tracking-wide text-gray-700 text-sm md:text-md font-medium mb-2" >
-                                            Zip Code
-                                        </label>
-                                        <input v-model="inputPrimaryZipCode" class="border-gray-400 appearance-none text-sm md:text-md block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
-                                    </div>
-                                </div>
-                                
-
-                                
-                                
-                            </div>
+                            
                             
                         </form>
-                        <div class="hidden flex items-center justify-between w-full">
-                            <div class="flex justify-center items-center cursor-pointer">
-                                <div class="bg-gray-300 text-gray-900 mt-6 h-12 px-2 py-3 rounded-md flex items-center justify-center hover:bg-gray-400" @click="toPrevious">
-                                    <font-awesome-icon class="rotate-90 mr-4 text-gray-600" style="transform: rotate(90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
-                                    
-                                    <p v-if="!submitted" class="">Back</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-center items-center cursor-pointer">
-                                <div class="ml-auto bg-teal-500 text-white mt-2 md:mt-6 h-12 px-12 py-3 w-full rounded-md flex items-center justify-center hover:bg-teal-600" v-if="(inputAgeOver65!=-1) && (inputVetStatus!=-1) && (primaryDifferent!=-1)" @click="toNextPage">
-                                    <p v-if="!submitted">Continue</p>
-                                    <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
-                                    <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
-                                </div>
-                                <div class="bg-teal-500 opacity-50 text-white mt-6 h-12 px-12 py-3 rounded-md flex items-center justify-center hover:bg-teal-600" v-if="!((inputAgeOver65!=-1) && (inputVetStatus!=-1) && (primaryDifferent!=-1))">
-                                    <p v-if="!submitted">Continue</p>
-                                    <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" v-if="!submitted" :icon="['fas', 'chevron-down']" />
-                                    <font-awesome-icon v-if="submitted" :icon="['fas', 'spinner']" spin size="lg" />
-                                </div>
-                            </div>
-                        </div>
                     </div>
                         
                 </div>
 
             </div>
 
-            <div  v-else-if="$store.state.appealSection == 2" key="3"  class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
+            <div  :class="appealSecGet==2 ? 'questioncenter' : appealSecGet==1 ? ['questionrightlarge', 'pointer-events-none'] : ['questionleftlarge', 'pointer-events-none']" key="3"  class="questiontrans absolute top-0 left-0 right-0 mx-auto flex justify-center mt-2 md:mt-2" style="max-width: 950px;">
                 <div class="flex items-stretch rounded-lg mb-12 overflow-y-hidden dropdslow overflow-x-hidden" style="max-width: 750px;" :style="{'max-height' : submitted ? '100px' : '1250px'}">
                 <div class="flex w-full flex-col items-stretch px-2 md:px-16 pt-3 md:pb-20" style="max-width: 750px;">
                     <div class="flex items-start flex-col mb-2 md:mb-8 md:pt-3 sm:pt-0 md:mb-2">
@@ -544,7 +526,7 @@
             
             
             
-            <div v-else-if="$store.state.appealSection == 3 && !$store.state.savingsCalc" key="4" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+            <div :class="(appealSecGet==3 && !savingsCalc) ? 'questioncenter' : appealSecGet==2 ? ['questionrightlarge', 'pointer-events-none'] : ['questionleftlarge', 'pointer-events-none']" key="4" class="questiontrans absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col items-center">    
                     <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Calculating your savings now..</p>
                     <div  class="flex items-start flex-col mt-2 w-full text-gray-700">
@@ -556,11 +538,8 @@
             
             </div>
 
-            <div v-else-if="$store.state.appealSection == 3 && $store.state.savingsCalc" key="4-1"
-                    data-aos="fade-up"
-                    data-aos-delay="0"
-                    data-aos-duration="900"
-                    data-aos-once="true" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+            <div v-if="appealSecGet>2" :class="(appealSecGet==3 && savingsCalc) ? 'questioncenter' : appealSecGet==4 ? ['questionleftlarge', 'pointer-events-none'] : ['questionrightlarge', 'pointer-events-none']" key="4-1"
+                class="questiontrans absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col w-full items-center">  
                     <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >We estimate your savings will be:</p>
 
@@ -584,11 +563,8 @@
             
             </div>
 
-            <div v-else-if="$store.state.appealSection == 4" key="5"
-                    data-aos="fade-up"
-                    data-aos-delay="0"
-                    data-aos-duration="900"
-                    data-aos-once="true" class="absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
+            <div  v-if="appealSecGet>2" :class="(appealSecGet==4) ? 'questioncenter' : ['questionrightlarge', 'pointer-events-none']" key="5"
+                class="questiontrans absolute top-0 left-0 right-0 mx-auto flex justify-center mt-12" style="max-width: 750px;">
                 <div class="flex flex-col w-full items-center">  
                     <p class="text-xl md:text-4xl mt-4 font-bold text-left text-teal-500 leading-tight" >Thank you</p>
                     
@@ -794,7 +770,7 @@ export default {
         textDots: 'This will only take a moment...',
         savingsCalculated: false,
         showPercent: false,
-        primaryDifferent: -1,
+        primaryDifferent: false,
         submitted: false,
         section: 0,
         sectionPrev: -1,
@@ -814,6 +790,21 @@ export default {
 
   },
   computed: {
+      getPrimaryDifferent() {
+          return this.$store.getters.getPrimaryDifferent
+      },
+      savingsCalc() {
+          return this.$store.getters.getSavingsCalc
+      },
+      appealSecGet() {
+          return this.$store.getters.appealSecGet
+      },
+      countyAnswers() {
+          return this.$store.getters.getCountyAnswers
+      },
+      questionsNumStore() {
+          return this.$store.getters.getQuestionsNum
+      },
       enterClasses(val) {
           return (this.sectionPrev < val) ? 'animated fadeInLeft delay-2' : 'animated fadeInRight delay-2'
       },
@@ -828,7 +819,13 @@ export default {
     },
   },
   methods: {
-
+    enterResidence() {
+        window.console.log(this.getPrimaryDifferent)
+        this.$store.commit('setPrimaryDifferent', { val: true} )
+        window.console.log(this.getPrimaryDifferent)
+        
+        // this.$emit('changeResidence', 0)
+    },
     toNextPage(){
         this.$store.commit('increment')
         this.sectionPrev = this.section
@@ -923,6 +920,22 @@ export default {
           this.$store.commit('changeZipCode', { val: this.inputZipCode })
           
       },
+      inputPrimaryAddress() {
+          this.$store.commit('changePrimaryAddress', { val: this.inputPrimaryAddress })
+          
+      },
+      inputPrimaryCity() {
+          this.$store.commit('changePrimaryCity', { val: this.inputPrimaryCity })
+          
+      },
+      inputPrimaryState() {
+          this.$store.commit('changePrimaryState', { val: this.inputPrimaryState })
+          
+      },
+      inputPrimaryZipCode() {
+          this.$store.commit('changePrimaryZipCode', { val: this.inputPrimaryZipCode })
+          
+      },
       inputFirstName() {
           this.$store.commit('changeinputFirstName', { val: this.inputFirstName })
       },
@@ -963,6 +976,33 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.questiontrans {
+    transition: all 1s;
+}
+
+.questioncenter {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.questionleft {
+    opacity:0;
+    transform: translateX(-400px);
+}
+.questionright {
+    opacity:0;
+    transform: translateX(400px);
+}
+
+.questionleftlarge {
+    opacity:0;
+    transform: translateX(-800px);
+}
+.questionrightlarge {
+    opacity:0;
+    transform: translateX(800px);
 }
 
 .navbutton {
