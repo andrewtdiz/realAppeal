@@ -93,7 +93,7 @@
             <p class="text-xs md:text-md">Back</p>
         </div>
         
-        <div v-if="$store.state.appealSection == 0 && (canSubmitFormUno)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="$store.commit('increment')">
+        <div v-if="$store.state.appealSection == 0 && (canSubmitFormUno)" class="shadow-md hidden md:flex bg-teal-500 mx-2 text-white md:mt-6 h-12 px-12 py-3 rounded-md cursor-pointer items-center justify-center hover:bg-teal-600 pointer-events-auto" @click="formOneCheck()">
             <p class="text-xs md:text-md">Continue</p>
             <font-awesome-icon class="rotate-90 ml-4" style="transform: rotate(-90deg)" :icon="['fas', 'chevron-down']" />
         </div>
@@ -588,6 +588,17 @@ export default {
     if(this.width < 600) this.ind = 1
   },
   methods: {
+    formOneCheck() {
+      let conditions = []
+      const addressRegex = /^\s*\S+(?:\s+\S+){2}/;
+      if(addressRegex.test(this.inputAddress)) conditions.push(0)
+      if (conditions) {
+        this.$store.commit('increment')
+      } else {
+        this.$store.commit('formOneError', { val: [1] })
+        setTimeout(() => this.$store.commit('formOneError', { val: [] }))
+      }
+    },
     changeResidence(val) {
       this.isResidence = val
       this.questionsNum += 1
@@ -632,6 +643,34 @@ export default {
     },
     questionsVal() {
         return this.$store.getters.questionsVal
+    },
+    inputAddress() {
+          return this.$store.getters.inputAddress
+          
+    },
+    inputCity() {
+        return this.$store.getters.inputCity
+        
+    },
+    inputState() {
+        return this.$store.getters.inputState
+        
+    },
+    inputZipCode() {
+        return this.$store.getters.inputZipCode
+        
+    },
+    inputFirstName() {
+        return this.$store.getters.inputFirstName
+    },
+    inputLastName() {
+        return this.$store.getters.inputLastName
+    },
+    inputEmail() {
+        return this.$store.getters.inputEmail
+    },
+    inputPhoneNum() {
+        return this.$store.getters.inputPhoneNum
     },
   }
 }

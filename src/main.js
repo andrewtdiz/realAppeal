@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     inputCity: '',
     inputState: '',
     inputZipCode: '',
+    formOneError: [],
 
     inputFirstName: '',
     inputLastName: '',
@@ -35,6 +36,9 @@ const store = new Vuex.Store({
     appealSecGet(state) {
       return state.appealSection
     },
+    formOneError(state) {
+      return state.formOneError
+    },
     canSubmitFormOne(state) {
       return state.inputAddress.length!=0 && state.inputCity.length!=0 && state.inputState.length!=0 && state.inputZipCode.length!=0
     },
@@ -47,6 +51,9 @@ const store = new Vuex.Store({
     },
   },
   mutations: {
+    changeFormOneErr(state, { val }){
+      state.formOneError = val
+    },
     changeinputFirstName(state, { val }){
       state.inputFirstName = val
     },
